@@ -23,8 +23,8 @@ var bullet_height = 30;
 // alawys running functions
 setInterval(generateAsteroidsX, 2000);
 setInterval(updateAsteroidsX, 50);
-setInterval(genarateBullets, 500);
-setInterval(updateBullets, 15);
+setInterval(genarateBullets, 700);
+setInterval(updateBullets, 30);
 
 
 function generateAsteroidsX() {
