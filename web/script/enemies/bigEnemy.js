@@ -35,7 +35,7 @@ setInterval(move, 25);
 setInterval(updateBullets, 25);
 setInterval(initEnemyMovement, 50);
 setInterval(moveEnemyRandomly, 25);
-setInterval(generateCoor , 3000);
+setInterval(generateCoor, 3000);
 
 $(document).ready(function () {
 
@@ -52,7 +52,7 @@ $(document).ready(function () {
     enemyBigShip.style.position = 'absolute';
     enemyBigShip.style.left = (screenWidth - enemyBigShip.width) / 2 + 'px';
     enemyBigShip.style.top = (0 - enemyBigShip.height);
-    enemyBigShip.setAttribute('class', 'enemy');
+//    enemyBigShip.setAttribute('class', 'enemy');
     enemyBigShip.strength = bigEnemy_strength;
 
 
@@ -157,9 +157,9 @@ function generateCoor() {
             break;
         }
     }
-    
+
     enemyTop = getRandomTop(0, 300);
-    
+
     deltaX = 5;
     if (parseInt(enemyBigShip.style.left) > enemyLeft) {
         deltaX *= -1;
@@ -170,7 +170,7 @@ function generateCoor() {
 
 function moveEnemyRandomly() {
 
-    
+
     x = parseInt(enemyBigShip.style.left) + deltaX;
     y = ((enemyTop - parseInt(enemyBigShip.style.top)) * (x - parseInt(enemyBigShip.style.left)) / (enemyLeft - parseInt(enemyBigShip.style.left))) + parseInt(enemyBigShip.style.top);
     if (initMoveFlag === true) {

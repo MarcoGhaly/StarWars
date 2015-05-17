@@ -42,7 +42,7 @@ $(document).ready(function () {
     spaceShip.style.left = (screenWidth - spaceShip.width) / 2 + 'px';
     spaceShip.style.top = screenHeight - spaceShip.height + 'px';
     
-    v
+    
     
 });
 
