@@ -1,153 +1,31 @@
 var screenWidth = $(window).width();
 var screenHeight = $(window).height();
 
-var spaceShip_moveUnit = 10;
-
-var audio_weapon = new Audio('audio/weapon.wav');
-
-// keys uni-code
-var key_left = 37;
-var key_right = 39;
-var key_up = 38;
-var key_down = 40;
-var key_space = 32;
-
-// bullet units
-var bullet_moveUnit = 10;
-var bullet_width = 10;
-var bullet_height = 30;
-
-var spaceShip;
 var enemyBigShip;
 
 var initMoveFlag = false;
 var bigEnemy_strength = 30;
 
-// space directions flags
-var leftPressed = false;
-var rightPressed = false;
-var upPressed = false;
-var downPressed = false;
-var spacePressed = false;
-
-// always running functions 
-setInterval(move, 25);
-setInterval(updateBullets, 25);
 setInterval(initEnemyMovement, 50);
 setInterval(moveEnemyRandomly, 25);
 setInterval(generateCoor, 3000);
 
 $(document).ready(function () {
-
-    document.onkeydown = keyDown;
-    document.onkeyup = keyUp;
-
-    spaceShip = document.getElementById('spaceShip');
-    spaceShip.style.position = 'absolute';
-    spaceShip.style.left = (screenWidth - spaceShip.width) / 2 + 'px';
-    spaceShip.style.top = screenHeight - spaceShip.height + 'px';
-
-
     enemyBigShip = document.getElementById('bigEnemyShip');
     enemyBigShip.style.position = 'absolute';
     enemyBigShip.style.left = (screenWidth - enemyBigShip.width) / 2 + 'px';
-    enemyBigShip.style.top = (0 - enemyBigShip.height);
-//    enemyBigShip.setAttribute('class', 'enemy');
+    enemyBigShip.style.top = (0 - enemyBigShip.height) + 'px';
+    enemyBigShip.setAttribute('class', 'enemy');
     enemyBigShip.strength = bigEnemy_strength;
-
-
 });
 
-function keyDown(e) {
-    setKey(e.keyCode, true);
-}
-
-function keyUp(e) {
-    setKey(e.keyCode, false);
-}
-
-function setKey(keyCode, pressed) {
-    if (keyCode === key_left) {
-        leftPressed = pressed;
-    } else if (keyCode === key_right) {
-        rightPressed = pressed;
-    }
-
-    if (keyCode === key_up) {
-        upPressed = pressed;
-    } else if (keyCode === key_down) {
-        downPressed = pressed;
-    }
-
-    if (keyCode === key_space) {
-        spacePressed = pressed;
-    }
-}
-
-function move() {
-    if (leftPressed) {
-        var left = parseInt(spaceShip.style.left) - spaceShip_moveUnit;
-        if (left > 0) {
-            spaceShip.style.left = left + 'px';
-        }
-    } else if (rightPressed) {
-        var left = parseInt(spaceShip.style.left) + spaceShip_moveUnit;
-        if (left + spaceShip.width < screenWidth) {
-            spaceShip.style.left = left + 'px';
-        }
-    }
-
-    if (upPressed) {
-        var top = parseInt(spaceShip.style.top) - spaceShip_moveUnit;
-        if (top > 0) {
-            spaceShip.style.top = top + 'px';
-        }
-    } else if (downPressed) {
-        var top = parseInt(spaceShip.style.top) + spaceShip_moveUnit;
-        if (top + spaceShip.height < screenHeight) {
-            spaceShip.style.top = top + 'px';
-        }
-    }
-
-    if (spacePressed) {
-        var bullet = document.createElement('img');
-        bullet.setAttribute('src', 'img/bullet.png');
-        bullet.setAttribute('name', 'bullet');
-        bullet.setAttribute('width', bullet_width + 'px');
-        bullet.setAttribute('height', bullet_height + 'px');
-
-        bullet.style.position = 'absolute';
-        bullet.style.left = parseInt(spaceShip.style.left) + (spaceShip.width - bullet_width) / 2 + 'px';
-        bullet.style.top = parseInt(spaceShip.style.top) - bullet_height + 'px';
-
-        document.body.appendChild(bullet);
-        audio_weapon.play();
-    } else {
-        audio_weapon.pause();
-    }
-}
-
-function updateBullets() {
-    var bullets = document.getElementsByName('bullet');
-    for (var i = 0; i < bullets.length; i++) {
-        bullets[i].style.top = parseInt(bullets[i].style.top) - bullet_moveUnit + 'px';
-        if (parseInt(bullets[i].style.top) + bullet_height < 0) {
-            document.body.removeChild(bullets[i]);
-        }
-    }
-}
-
 function initEnemyMovement() {
+    alert(enemyBigShip.style.top);
     if ((parseInt(enemyBigShip.style.top)) < 150) {
         enemyBigShip.style.top = parseInt(enemyBigShip.style.top) + 5 + 'px';
-    }
-
-    else {
+    } else {
         initMoveFlag = true;
-
     }
-
-
 }
 
 function generateCoor() {
@@ -166,22 +44,16 @@ function generateCoor() {
     }
 }
 
-
-
 function moveEnemyRandomly() {
-
-
     x = parseInt(enemyBigShip.style.left) + deltaX;
     y = ((enemyTop - parseInt(enemyBigShip.style.top)) * (x - parseInt(enemyBigShip.style.left)) / (enemyLeft - parseInt(enemyBigShip.style.left))) + parseInt(enemyBigShip.style.top);
     if (initMoveFlag === true) {
         enemyBigShip.style.left = x + 'px';
         enemyBigShip.style.top = y + 'px';
     }
-
 }
 
 //generate random left and top attributes
-
 function getRandomLeft(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -189,5 +61,3 @@ function getRandomLeft(min, max) {
 function getRandomTop(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
-
