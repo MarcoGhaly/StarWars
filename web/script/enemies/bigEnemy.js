@@ -4,7 +4,7 @@ var screenHeight = $(window).height();
 var enemyBigShip;
 
 var initMoveFlag = false;
-var bigEnemy_strength = 300;
+var bigEnemy_strength = 30;
 
 setInterval(initEnemyMovement, 50);
 setInterval(moveEnemyRandomly, 25);
@@ -20,7 +20,7 @@ $(document).ready(function () {
 });
 
 function initEnemyMovement() {
-
+   // alert(enemyBigShip.style.top);
     if ((parseInt(enemyBigShip.style.top)) < 150) {
         enemyBigShip.style.top = parseInt(enemyBigShip.style.top) + 5 + 'px';
     } else {
