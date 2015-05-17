@@ -20,7 +20,7 @@ $(document).ready(function () {
 });
 
 function initEnemyMovement() {
-    alert(enemyBigShip.style.top);
+   // alert(enemyBigShip.style.top);
     if ((parseInt(enemyBigShip.style.top)) < 150) {
         enemyBigShip.style.top = parseInt(enemyBigShip.style.top) + 5 + 'px';
     } else {
