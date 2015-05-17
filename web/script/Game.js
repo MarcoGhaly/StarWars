@@ -15,17 +15,18 @@ $(document).ready(function () {
 function detectCollisions() {
     var bullets = document.getElementsByName('bullet');
     var enemies = document.getElementsByClassName('enemy');
+
     for (var i = 0; i < bullets.length; i++) {
         for (var j = 0; j < enemies.length; j++) {
             var horizontal = parseInt(bullets[i].style.left) > parseInt(enemies[j].style.left)
-                    && parseInt(bullets[i].style.left) < parseInt(enemies[j].style.left) + asteroid_width
+                    && parseInt(bullets[i].style.left) < parseInt(enemies[j].style.left) + enemies[j].width
                     || parseInt(bullets[i].style.left) + bullet_width > parseInt(enemies[j].style.left)
-                    && parseInt(bullets[i].style.left) + bullet_width < parseInt(enemies[j].style.left) + asteroid_width;
+                    && parseInt(bullets[i].style.left) + bullet_width < parseInt(enemies[j].style.left) + enemies[j].width;
 
             var vertical = parseInt(bullets[i].style.top) > parseInt(enemies[j].style.top)
-                    && parseInt(bullets[i].style.top) < parseInt(enemies[j].style.top) + asteroid_height
+                    && parseInt(bullets[i].style.top) < parseInt(enemies[j].style.top) + enemies[j].height
                     || parseInt(bullets[i].style.top) + bullet_height > parseInt(enemies[j].style.top)
-                    && parseInt(bullets[i].style.top) + bullet_height < parseInt(enemies[j].style.top) + asteroid_height;
+                    && parseInt(bullets[i].style.top) + bullet_height < parseInt(enemies[j].style.top) + enemies[j].height;
 
             if (horizontal && vertical) {
                 enemies[j].strength--;
