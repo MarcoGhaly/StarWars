@@ -4,7 +4,7 @@ var screenHeight = $(window).height();
 var enemyBigShip;
 
 var initMoveFlag = false;
-var bigEnemy_strength = 300;
+var bigEnemy_strength = 10;
 
 setInterval(initEnemyMovement, 50);
 setInterval(moveEnemyRandomly, 25);
