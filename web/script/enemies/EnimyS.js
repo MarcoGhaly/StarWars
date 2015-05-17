@@ -11,13 +11,21 @@ var screenHeight = $(window).height();
 
 // enemy units
 var asteroid_moveUnit = 10;
-var asteroid_widthX = 155;
-var asteroid_heightX = 155;
-var asteroid_strength = 30;
+var asteroid_widthX = 80;
+var asteroid_heightX = 80;
+var asteroid_strength = 20;
+
+// bullet units
+var bullet_moveUnit = 10;
+var bullet_width = 10;
+var bullet_height = 30;
 
 // alawys running functions
 setInterval(generateAsteroidsX, 2000);
 setInterval(updateAsteroidsX, 50);
+setInterval(genarateBullets, 100);
+setInterval(updateBullets, 10);
+
 
 function generateAsteroidsX() {
     var asteroid = document.createElement('img');
@@ -39,10 +47,10 @@ function generateAsteroidsX() {
     asteroid2.style.position = 'absolute';
     asteroid2.style.left = (screenWidth - parseInt(asteroid.style.width)) / 3 * 2 + 'px';
     asteroid2.style.top = '0px';
-    
 
-    asteroid.strength = asteroid_strength-20;
-    asteroid2.strength = asteroid_strength-20;
+    asteroid.strength = 10;
+    asteroid2.strength = 10;
+
 
     document.body.appendChild(asteroid);
     document.body.appendChild(asteroid2);
@@ -50,14 +58,40 @@ function generateAsteroidsX() {
 }
 
 function updateAsteroidsX() {
-    var asteroids = document.getElementsByName('ufo');
+    asteroids = document.getElementsByName('ufo');
     for (var i = 0; i < asteroids.length; i++) {
         asteroids[i].style.top = parseInt(asteroids[i].style.top) + asteroid_moveUnit + 'px';
-     
-        if(parseInt(asteroids[i].style.top) > 200)
-        {
-        asteroids[i].style.left = parseInt(asteroids[i].style.top) + 3 + 'px';
 
+        if (parseInt(asteroids[i].style.top) > 200)
+        {
+            asteroids[i].style.left = parseInt(asteroids[i].style.top) + 3 + 'px';
+
+        }
+    }
+}
+
+function genarateBullets() {
+    var bullet = document.createElement('img');
+    bullet.setAttribute('src', 'img/bullet2.GIF');
+    bullet.setAttribute('name', 'bulletX');
+    bullet.setAttribute('width', bullet_width + 'px');
+    bullet.setAttribute('height', bullet_height + 'px');
+    bullet.style.position = 'absolute';
+    for (var i = 0; i < asteroids.length; i++) {
+        bullet.style.left = parseInt(asteroids[i].style.left) + (asteroids[i].width - bullet_width) / 2 + 'px';
+        bullet.style.top = parseInt(asteroids[i].style.top) + asteroids[i].height + 'px';
+    }
+    document.body.appendChild(bullet);
+    audio_weapon.play();
+}
+
+function updateBullets() {
+    var bullets = document.getElementsByName('bulletX');
+    for (var i = 0; i < bullets.length; i++)
+    {
+        bullets[i].style.top = parseInt(bullets[i].style.top) + bullet_moveUnit + 'px';
+        if (parseInt(bullets[i].style.top) + bullet_height < 0) {
+            document.body.removeChild(bullets[i]);
         }
     }
 }
