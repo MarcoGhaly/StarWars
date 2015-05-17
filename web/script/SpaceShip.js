@@ -19,6 +19,7 @@ var bullet_height = 30;
 
 var spaceShip;
 
+
 // space directions flags
 var leftPressed = false;
 var rightPressed = false;
@@ -40,6 +41,9 @@ $(document).ready(function () {
     spaceShip.style.position = 'absolute';
     spaceShip.style.left = (screenWidth - spaceShip.width) / 2 + 'px';
     spaceShip.style.top = screenHeight - spaceShip.height + 'px';
+    
+    v
+    
 });
 
 function keyDown(e) {
