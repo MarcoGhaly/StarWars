@@ -14,7 +14,7 @@ var bigEnemy_strength = 30;
 setInterval(initEnemyMovement, 50);
 setInterval(moveEnemyRandomly, 25);
 setInterval(generateCoor, 3000);
-setInterval(generateBigEnemyBullets, 3000);
+var refreshIntervalId = setInterval(generateBigEnemyBullets, 3000);
 setInterval(updateCenterEnemyBullets, 25);
 setInterval(updateLeftEnemyBullets, 25);
 setInterval(updateRightEnemyBullets, 25);
@@ -29,7 +29,7 @@ $(document).ready(function () {
 });
 
 function initEnemyMovement() {
-   // alert(enemyBigShip.style.top);
+    // alert(enemyBigShip.style.top);
     if ((parseInt(enemyBigShip.style.top)) < 150) {
         enemyBigShip.style.top = parseInt(enemyBigShip.style.top) + 5 + 'px';
     } else {
@@ -75,45 +75,48 @@ function getRandomTop(min, max) {
 
 //generate enemy bullets
 function generateBigEnemyBullets() {
-    if (initMoveFlag === true) {
-        
-        var bullet = document.createElement('img');
-        
-        var bullet1 = document.createElement('img');
-        
-        var bullet2 = document.createElement('img');
-        
-        bullet.setAttribute('src', 'img/rocket.png');
-        bullet.setAttribute('name', 'bigEnemyBullet');
-        bullet.setAttribute('width', bullet_width + 'px');
-        bullet.setAttribute('height', bullet_height + 'px');
+    var enemies = document.getElementsByName('bigEnemyShip');
+    for (var i = 0; i < enemies.length; i++) {
+        if (initMoveFlag === true) {
 
-        bullet1.setAttribute('src', 'img/rocket_left.png');
-        bullet1.setAttribute('name', 'leftBigEnemyBullet');
-        bullet1.setAttribute('width', bullet_width + 'px');
-        bullet1.setAttribute('height', bullet_height + 'px');
+            var bullet = document.createElement('img');
 
-        bullet2.setAttribute('src', 'img/rocket_right.png');
-        bullet2.setAttribute('name', 'rightBigEnemyBullet');
-        bullet2.setAttribute('width', bullet_width + 'px');
-        bullet2.setAttribute('height', bullet_height + 'px');
+            var bullet1 = document.createElement('img');
 
-        bullet.style.position = 'absolute';
-        bullet1.style.position = 'absolute';
-        bullet2.style.position = 'absolute';
+            var bullet2 = document.createElement('img');
 
-        bullet.style.left = parseInt(enemyBigShip.style.left) + (enemyBigShip.width - bullet_width) / 2 + 'px';
-        bullet.style.top = parseInt(enemyBigShip.style.top) + enemyBigShip.height + 'px';
+            bullet.setAttribute('src', 'img/rocket.png');
+            bullet.setAttribute('name', 'bigEnemyBullet');
+            bullet.setAttribute('width', bullet_width + 'px');
+            bullet.setAttribute('height', bullet_height + 'px');
 
-        bullet1.style.left = parseInt(enemyBigShip.style.left) + (enemyBigShip.width - bullet_width) / 2 - 50 + 'px';
-        bullet1.style.top = parseInt(enemyBigShip.style.top) + enemyBigShip.height + 'px';
-        
-        bullet2.style.left = parseInt(enemyBigShip.style.left) + (enemyBigShip.width - bullet_width) / 2 + 50 + 'px';
-        bullet2.style.top = parseInt(enemyBigShip.style.top) + enemyBigShip.height + 'px';
-        
-        document.body.appendChild(bullet);
-        document.body.appendChild(bullet1);
-        document.body.appendChild(bullet2);
+            bullet1.setAttribute('src', 'img/rocket_left.png');
+            bullet1.setAttribute('name', 'leftBigEnemyBullet');
+            bullet1.setAttribute('width', bullet_width + 'px');
+            bullet1.setAttribute('height', bullet_height + 'px');
+
+            bullet2.setAttribute('src', 'img/rocket_right.png');
+            bullet2.setAttribute('name', 'rightBigEnemyBullet');
+            bullet2.setAttribute('width', bullet_width + 'px');
+            bullet2.setAttribute('height', bullet_height + 'px');
+
+            bullet.style.position = 'absolute';
+            bullet1.style.position = 'absolute';
+            bullet2.style.position = 'absolute';
+
+            bullet.style.left = parseInt(enemies[i].style.left) + (enemies[i].width - bullet_width) / 2 + 'px';
+            bullet.style.top = parseInt(enemies[i].style.top) + enemies[i].height + 'px';
+
+            bullet1.style.left = parseInt(enemies[i].style.left) + (enemies[i].width - bullet_width) / 2 - 50 + 'px';
+            bullet1.style.top = parseInt(enemies[i].style.top) + enemies[i].height + 'px';
+
+            bullet2.style.left = parseInt(enemies[i].style.left) + (enemies[i].width - bullet_width) / 2 + 50 + 'px';
+            bullet2.style.top = parseInt(enemies[i].style.top) + enemies[i].height + 'px';
+
+            document.body.appendChild(bullet);
+            document.body.appendChild(bullet1);
+            document.body.appendChild(bullet2);
+        }
     }
 }
 
@@ -143,7 +146,7 @@ function updateRightEnemyBullets() {
     for (var i = 0; i < bullets.length; i++) {
         bullets[i].style.top = parseInt(bullets[i].style.top) + bullet_moveUnit + 'px';
         bullets[i].style.left = parseInt(bullets[i].style.left) + bullet_moveUnit + 'px';
-        
+
         if (parseInt(bullets[i].style.top) + bullet_height > screenHeight) {
             document.body.removeChild(bullets[i]);
         }

@@ -24,7 +24,7 @@ var bullet_height = 30;
 setInterval(generateAsteroidsX, 2000);
 setInterval(updateAsteroidsX, 50);
 setInterval(genarateBullets, 100);
-setInterval(updateBullets, 10);
+setInterval(updateBullets, 40);
 
 
 function generateAsteroidsX() {
