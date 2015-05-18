@@ -28,7 +28,7 @@ function generateAsteroidsX() {
     asteroid.style.height = asteroid_heightX + 'px';
     asteroid.style.position = 'absolute';
     asteroid.style.left = (screenWidth - parseInt(asteroid.style.width)) / 3 + 'px';
-    asteroid.style.top = '0px';
+    asteroid.style.top = - asteroid.height + 'px';
 
     asteroid2.setAttribute('src', 'img/spaceship-Sarah.gif');
     asteroid2.setAttribute('class', 'enemy');
@@ -37,7 +37,7 @@ function generateAsteroidsX() {
     asteroid2.style.height = asteroid_heightX + 'px';
     asteroid2.style.position = 'absolute';
     asteroid2.style.left = (screenWidth - parseInt(asteroid.style.width)) / 3 * 2.5 + 'px';
-    asteroid2.style.top = '0px';
+    asteroid2.style.top = - asteroid.height + 'px';
 
     asteroid.strength = 10;
     asteroid2.strength = 10;
