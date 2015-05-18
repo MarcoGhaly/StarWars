@@ -2,9 +2,9 @@ var screenWidth = $(window).width();
 var screenHeight = $(window).height();
 
 // bullet units
-var bullet_moveUnit = 5;
-var bullet_width = 20;
-var bullet_height = 30;
+var bullet_moveUnitY = 5;
+var bullet_widthY = 20;
+var bullet_heightY = 30;
 
 var enemyBigShip;
 
@@ -25,11 +25,12 @@ $(document).ready(function () {
     enemyBigShip.style.left = (screenWidth - enemyBigShip.width) / 2 + 'px';
     enemyBigShip.style.top = (0 - enemyBigShip.height) + 'px';
     enemyBigShip.setAttribute('class', 'enemy');
+    enemyBigShip.setAttribute('name', 'bigEnemyShip');
     enemyBigShip.strength = bigEnemy_strength;
 });
 
 function initEnemyMovement() {
-   // alert(enemyBigShip.style.top);
+    // alert(enemyBigShip.style.top);
     if ((parseInt(enemyBigShip.style.top)) < 150) {
         enemyBigShip.style.top = parseInt(enemyBigShip.style.top) + 5 + 'px';
     } else {
@@ -75,45 +76,47 @@ function getRandomTop(min, max) {
 
 //generate enemy bullets
 function generateBigEnemyBullets() {
-    if (initMoveFlag === true) {
-        
-        var bullet = document.createElement('img');
-        
-        var bullet1 = document.createElement('img');
-        
-        var bullet2 = document.createElement('img');
-        
-        bullet.setAttribute('src', 'img/rocket.png');
-        bullet.setAttribute('name', 'bigEnemyBullet');
-        bullet.setAttribute('width', bullet_width + 'px');
-        bullet.setAttribute('height', bullet_height + 'px');
+    var enemies = document.getElementsByName('bigEnemyShip');
+    for (var i = 0; i < enemies.length; i++) {
+        if (initMoveFlag === true) {
+            var bullet = document.createElement('img');
 
-        bullet1.setAttribute('src', 'img/rocket_left.png');
-        bullet1.setAttribute('name', 'leftBigEnemyBullet');
-        bullet1.setAttribute('width', bullet_width + 'px');
-        bullet1.setAttribute('height', bullet_height + 'px');
+            var bullet1 = document.createElement('img');
 
-        bullet2.setAttribute('src', 'img/rocket_right.png');
-        bullet2.setAttribute('name', 'rightBigEnemyBullet');
-        bullet2.setAttribute('width', bullet_width + 'px');
-        bullet2.setAttribute('height', bullet_height + 'px');
+            var bullet2 = document.createElement('img');
 
-        bullet.style.position = 'absolute';
-        bullet1.style.position = 'absolute';
-        bullet2.style.position = 'absolute';
+            bullet.setAttribute('src', 'img/rocket.png');
+            bullet.setAttribute('name', 'bigEnemyBullet');
+            bullet.setAttribute('width', bullet_widthY + 'px');
+            bullet.setAttribute('height', bullet_heightY + 'px');
 
-        bullet.style.left = parseInt(enemyBigShip.style.left) + (enemyBigShip.width - bullet_width) / 2 + 'px';
-        bullet.style.top = parseInt(enemyBigShip.style.top) + enemyBigShip.height + 'px';
+            bullet1.setAttribute('src', 'img/rocket_left.png');
+            bullet1.setAttribute('name', 'leftBigEnemyBullet');
+            bullet1.setAttribute('width', bullet_widthY + 'px');
+            bullet1.setAttribute('height', bullet_heightY + 'px');
 
-        bullet1.style.left = parseInt(enemyBigShip.style.left) + (enemyBigShip.width - bullet_width) / 2 - 50 + 'px';
-        bullet1.style.top = parseInt(enemyBigShip.style.top) + enemyBigShip.height + 'px';
-        
-        bullet2.style.left = parseInt(enemyBigShip.style.left) + (enemyBigShip.width - bullet_width) / 2 + 50 + 'px';
-        bullet2.style.top = parseInt(enemyBigShip.style.top) + enemyBigShip.height + 'px';
-        
-        document.body.appendChild(bullet);
-        document.body.appendChild(bullet1);
-        document.body.appendChild(bullet2);
+            bullet2.setAttribute('src', 'img/rocket_right.png');
+            bullet2.setAttribute('name', 'rightBigEnemyBullet');
+            bullet2.setAttribute('width', bullet_widthY + 'px');
+            bullet2.setAttribute('height', bullet_heightY + 'px');
+
+            bullet.style.position = 'absolute';
+            bullet1.style.position = 'absolute';
+            bullet2.style.position = 'absolute';
+
+            bullet.style.left = parseInt(enemies[i].style.left) + (enemies[i].width - bullet_widthY) / 2 + 'px';
+            bullet.style.top = parseInt(enemies[i].style.top) + enemies[i].height + 'px';
+
+            bullet1.style.left = parseInt(enemies[i].style.left) + (enemies[i].width - bullet_widthY) / 2 - 50 + 'px';
+            bullet1.style.top = parseInt(enemies[i].style.top) + enemies[i].height + 'px';
+
+            bullet2.style.left = parseInt(enemies[i].style.left) + (enemies[i].width - bullet_widthY) / 2 + 50 + 'px';
+            bullet2.style.top = parseInt(enemies[i].style.top) + enemies[i].height + 'px';
+
+            document.body.appendChild(bullet);
+            document.body.appendChild(bullet1);
+            document.body.appendChild(bullet2);
+        }
     }
 }
 
@@ -121,8 +124,8 @@ function generateBigEnemyBullets() {
 function updateCenterEnemyBullets() {
     var bullets = document.getElementsByName('bigEnemyBullet');
     for (var i = 0; i < bullets.length; i++) {
-        bullets[i].style.top = parseInt(bullets[i].style.top) + bullet_moveUnit + 'px';
-        if (parseInt(bullets[i].style.top) + bullet_height > screenHeight) {
+        bullets[i].style.top = parseInt(bullets[i].style.top) + bullet_moveUnitY + 'px';
+        if (parseInt(bullets[i].style.top) + bullet_heightY > screenHeight) {
             document.body.removeChild(bullets[i]);
         }
     }
@@ -130,9 +133,9 @@ function updateCenterEnemyBullets() {
 function updateLeftEnemyBullets() {
     var bullets = document.getElementsByName('leftBigEnemyBullet');
     for (var i = 0; i < bullets.length; i++) {
-        bullets[i].style.top = parseInt(bullets[i].style.top) + bullet_moveUnit + 'px';
-        bullets[i].style.left = parseInt(bullets[i].style.left) - bullet_moveUnit + 'px';
-        if (parseInt(bullets[i].style.top) + bullet_height > screenHeight) {
+        bullets[i].style.top = parseInt(bullets[i].style.top) + bullet_moveUnitY + 'px';
+        bullets[i].style.left = parseInt(bullets[i].style.left) - bullet_moveUnitY + 'px';
+        if (parseInt(bullets[i].style.top) + bullet_heightY > screenHeight) {
             document.body.removeChild(bullets[i]);
         }
     }
@@ -141,14 +144,11 @@ function updateLeftEnemyBullets() {
 function updateRightEnemyBullets() {
     var bullets = document.getElementsByName('rightBigEnemyBullet');
     for (var i = 0; i < bullets.length; i++) {
-        bullets[i].style.top = parseInt(bullets[i].style.top) + bullet_moveUnit + 'px';
-        bullets[i].style.left = parseInt(bullets[i].style.left) + bullet_moveUnit + 'px';
-        
-        if (parseInt(bullets[i].style.top) + bullet_height > screenHeight) {
+        bullets[i].style.top = parseInt(bullets[i].style.top) + bullet_moveUnitY + 'px';
+        bullets[i].style.left = parseInt(bullets[i].style.left) + bullet_moveUnitY + 'px';
+
+        if (parseInt(bullets[i].style.top) + bullet_heightY > screenHeight) {
             document.body.removeChild(bullets[i]);
         }
     }
 }
-
-
-

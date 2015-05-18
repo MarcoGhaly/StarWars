@@ -13,10 +13,8 @@ var flag = true;
 var audio_weapon = new Audio('audio/weapon.wav');
 
 // bullet units
-var bullet_moveUnit = 10;
 var fireBall_width = 30;
 var fireBall_height = 30;
-
 
 // alawys running functions
 setTimeout(generateEnemy, 1000);
@@ -137,7 +135,6 @@ function updateEnemyBullets() {
     var bullets = document.getElementsByName('enemyBullet');
 
     for (var i = 0; i < bullets.length; i++) {
-
 
         var bullet_x = parseInt(bullets[i].style.left);
         var bullet_y = parseInt(bullets[i].style.top) + bullets[i].moveUnit;
