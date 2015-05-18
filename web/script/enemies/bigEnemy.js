@@ -14,7 +14,7 @@ var bigEnemy_strength = 30;
 setInterval(initEnemyMovement, 50);
 setInterval(moveEnemyRandomly, 25);
 setInterval(generateCoor, 3000);
-var refreshIntervalId = setInterval(generateBigEnemyBullets, 3000);
+setInterval(generateBigEnemyBullets, 3000);
 setInterval(updateCenterEnemyBullets, 25);
 setInterval(updateLeftEnemyBullets, 25);
 setInterval(updateRightEnemyBullets, 25);
