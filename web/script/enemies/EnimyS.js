@@ -1,19 +1,10 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-
 var screenWidth = $(window).width();
 var screenHeight = $(window).height();
 
 // enemy units
-var asteroid_moveUnit = 5;
+var asteroid_moveUnitX = 5;
 var asteroid_widthX = 80;
 var asteroid_heightX = 80;
-var asteroid_strength = 20;
 
 // bullet units
 var bullet_moveUnit = 10;
@@ -37,7 +28,7 @@ function generateAsteroidsX() {
     asteroid.style.height = asteroid_heightX + 'px';
     asteroid.style.position = 'absolute';
     asteroid.style.left = (screenWidth - parseInt(asteroid.style.width)) / 3 + 'px';
-    asteroid.style.top = '0px';
+    asteroid.style.top = - asteroid.height + 'px';
 
     asteroid2.setAttribute('src', 'img/spaceship-Sarah.gif');
     asteroid2.setAttribute('class', 'enemy');
@@ -46,7 +37,7 @@ function generateAsteroidsX() {
     asteroid2.style.height = asteroid_heightX + 'px';
     asteroid2.style.position = 'absolute';
     asteroid2.style.left = (screenWidth - parseInt(asteroid.style.width)) / 3 * 2.5 + 'px';
-    asteroid2.style.top = '0px';
+    asteroid2.style.top = - asteroid.height + 'px';
 
     asteroid.strength = 10;
     asteroid2.strength = 10;
@@ -60,35 +51,35 @@ function generateAsteroidsX() {
 function updateAsteroidsX() {
     asteroids = document.getElementsByName('ufo');
     for (var i = 0; i < asteroids.length; i++) {
-        asteroids[i].style.top = parseInt(asteroids[i].style.top) + asteroid_moveUnit + 'px';
+        asteroids[i].style.top = parseInt(asteroids[i].style.top) + asteroid_moveUnitX + 'px';
 
         if (parseInt(asteroids[i].style.top) > 50)
         {
-            asteroids[i].style.left = parseInt(asteroids[i].style.left) - 10+ 'px';
+            asteroids[i].style.left = parseInt(asteroids[i].style.left) - 10 + 'px';
             asteroids[i].style.top = parseInt(asteroids[i].style.top) + 2 + 'px';
-  
+
         }
-        
-           if (parseInt(asteroids[i].style.top) > 170)
+
+        if (parseInt(asteroids[i].style.top) > 170)
         {
             asteroids[i].style.left = parseInt(asteroids[i].style.left) + 20 + 'px';
             asteroids[i].style.top = parseInt(asteroids[i].style.top) + 2 + 'px';
-  
+
         }
-         if (parseInt(asteroids[i].style.top) > 300)
+        if (parseInt(asteroids[i].style.top) > 300)
         {
             asteroids[i].style.left = parseInt(asteroids[i].style.left) - 10 + 'px';
             asteroids[i].style.top = parseInt(asteroids[i].style.top) + 2 + 'px';
-  
+
         }
-        
-            if (parseInt(asteroids[i].style.top) > 370)
+
+        if (parseInt(asteroids[i].style.top) > 370)
         {
             asteroids[i].style.left = parseInt(asteroids[i].style.left) - 10 + 'px';
             asteroids[i].style.top = parseInt(asteroids[i].style.top) + 2 + 'px';
-  
+
         }
-        
+
     }
 }
 
