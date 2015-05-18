@@ -92,14 +92,14 @@ function detectCollisions() {
     }
 
     var enemyBullets = document.getElementsByName('enemyBullet');
-    for (var i = 0; i < bullets.length; i++) {
-        if (isColliding(spaceShip, enemyBullets[i])) {
+    for (var i = 0; i < enemyBullets.length; i++) {
+        if (isColliding(enemyBullets[i], spaceShip)) {
             var explosion = document.createElement('div');
             explosion.style.backgroundImage = 'url(img/explosion_hit.png)';
             explosion.style.position = 'absolute';
             
-            explosion.style.left = parseInt(bullets[i].style.left) + 'px';
-            explosion.style.top = parseInt(bullets[i].style.top) + 'px';
+            explosion.style.left = parseInt(enemyBullets[i].style.left) + 'px';
+            explosion.style.top = parseInt(enemyBullets[i].style.top) + 'px';
             explosion.style.width = '25px';
             explosion.style.height = '25px';
             explosion_fps = 150;
@@ -122,16 +122,16 @@ function detectCollisions() {
     }
 }
 
-function isColliding(firstObject, secondObject) {
-    var horizontal = parseInt(firstObject.style.left) > parseInt(secondObject.style.left)
-            && parseInt(firstObject.style.left) < parseInt(secondObject.style.left) + secondObject.width
-            || parseInt(firstObject.style.left) + firstObject.width > parseInt(secondObject.style.left)
-            && parseInt(firstObject.style.left) + firstObject.width < parseInt(secondObject.style.left) + secondObject.width;
+function isColliding(smallerObject, biggerObject) {
+    var horizontal = parseInt(smallerObject.style.left) > parseInt(biggerObject.style.left)
+            && parseInt(smallerObject.style.left) < parseInt(biggerObject.style.left) + biggerObject.width
+            || parseInt(smallerObject.style.left) + smallerObject.width > parseInt(biggerObject.style.left)
+            && parseInt(smallerObject.style.left) + smallerObject.width < parseInt(biggerObject.style.left) + biggerObject.width;
 
-    var vertical = parseInt(firstObject.style.top) > parseInt(secondObject.style.top)
-            && parseInt(firstObject.style.top) < parseInt(secondObject.style.top) + secondObject.height
-            || parseInt(firstObject.style.top) + firstObject.height > parseInt(secondObject.style.top)
-            && parseInt(firstObject.style.top) + firstObject.height < parseInt(secondObject.style.top) + secondObject.height;
+    var vertical = parseInt(smallerObject.style.top) > parseInt(biggerObject.style.top)
+            && parseInt(smallerObject.style.top) < parseInt(biggerObject.style.top) + biggerObject.height
+            || parseInt(smallerObject.style.top) + smallerObject.height > parseInt(biggerObject.style.top)
+            && parseInt(smallerObject.style.top) + smallerObject.height < parseInt(biggerObject.style.top) + biggerObject.height;
 
     if (horizontal && vertical) {
         return true;

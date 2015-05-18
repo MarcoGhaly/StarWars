@@ -2,7 +2,7 @@ var screenWidth = $(window).width();
 var screenHeight = $(window).height();
 
 // bullet units
-var bullet_moveUnit = 5;
+var bullet_moveUnitY = 5;
 var bullet_width = 20;
 var bullet_height = 30;
 
@@ -121,7 +121,7 @@ function generateBigEnemyBullets() {
 function updateCenterEnemyBullets() {
     var bullets = document.getElementsByName('bigEnemyBullet');
     for (var i = 0; i < bullets.length; i++) {
-        bullets[i].style.top = parseInt(bullets[i].style.top) + bullet_moveUnit + 'px';
+        bullets[i].style.top = parseInt(bullets[i].style.top) + bullet_moveUnitY + 'px';
         if (parseInt(bullets[i].style.top) + bullet_height > screenHeight) {
             document.body.removeChild(bullets[i]);
         }
@@ -130,8 +130,8 @@ function updateCenterEnemyBullets() {
 function updateLeftEnemyBullets() {
     var bullets = document.getElementsByName('leftBigEnemyBullet');
     for (var i = 0; i < bullets.length; i++) {
-        bullets[i].style.top = parseInt(bullets[i].style.top) + bullet_moveUnit + 'px';
-        bullets[i].style.left = parseInt(bullets[i].style.left) - bullet_moveUnit + 'px';
+        bullets[i].style.top = parseInt(bullets[i].style.top) + bullet_moveUnitY + 'px';
+        bullets[i].style.left = parseInt(bullets[i].style.left) - bullet_moveUnitY + 'px';
         if (parseInt(bullets[i].style.top) + bullet_height > screenHeight) {
             document.body.removeChild(bullets[i]);
         }
@@ -141,8 +141,8 @@ function updateLeftEnemyBullets() {
 function updateRightEnemyBullets() {
     var bullets = document.getElementsByName('rightBigEnemyBullet');
     for (var i = 0; i < bullets.length; i++) {
-        bullets[i].style.top = parseInt(bullets[i].style.top) + bullet_moveUnit + 'px';
-        bullets[i].style.left = parseInt(bullets[i].style.left) + bullet_moveUnit + 'px';
+        bullets[i].style.top = parseInt(bullets[i].style.top) + bullet_moveUnitY + 'px';
+        bullets[i].style.left = parseInt(bullets[i].style.left) + bullet_moveUnitY + 'px';
         
         if (parseInt(bullets[i].style.top) + bullet_height > screenHeight) {
             document.body.removeChild(bullets[i]);

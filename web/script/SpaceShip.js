@@ -13,12 +13,11 @@ var key_down = 40;
 var key_space = 32;
 
 // bullet units
-var bullet_moveUnit = 10;
+var bullet_moveUnit = 20;
 var bullet_width = 10;
 var bullet_height = 30;
 
 var spaceShip;
-
 
 // space directions flags
 var leftPressed = false;
@@ -41,9 +40,6 @@ $(document).ready(function () {
     spaceShip.style.position = 'absolute';
     spaceShip.style.left = (screenWidth - spaceShip.width) / 2 + 'px';
     spaceShip.style.top = screenHeight - spaceShip.height + 'px';
-    
-    
-    
 });
 
 function keyDown(e) {

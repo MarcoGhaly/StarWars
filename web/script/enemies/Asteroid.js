@@ -9,7 +9,7 @@ var asteroid_height = 75;
 var asteroid_strength = 30;
 
 // alawys running functions
-setInterval(generateAsteroids, 1000);
+setInterval(generateAsteroids, 2000);
 setInterval(updateAsteroids, 30);
 
 function generateAsteroids() {
