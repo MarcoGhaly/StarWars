@@ -4,19 +4,38 @@ var frames = [];
 
 var explosion_audio = new Audio('audio/explosion1.mp3');
 
-setInterval(detectCollisions, 50);
+var startButtonBlinkInterval;
 
 $(document).ready(function () {
-//    var body = document.getElementsByTagName('body')[0];
+
+    // move background
+    var element = document.querySelector('#panning');
+    var panning = new Motio(element, {
+        fps: 200, // Frames per second. More fps = higher CPU load.
+        speedY: 110 // Negative horizontal speed = panning to left.
+    })
+    panning.play(); // start animation
+
+    startButtonBlinkInterval = setInterval(function (){$("#startButton").fadeIn(1000).fadeOut(1000)}, 1000);
+
+});
+
+function beginGame() {
+
+    // clear screen
+    document.body.removeChild(document.getElementById("startScreen"));
+    document.body.removeChild(document.getElementById("startButton"));
+    
 
     for (var i = 0; i < 48; i++) {
         frames[i] = i;
     }
 
-    
+    setInterval(detectCollisions, 50);
+
     // life bar
     putLifeBar();
-    
+
 
     // score bar
     var score = document.createElement("span");
@@ -26,20 +45,20 @@ $(document).ready(function () {
     score.innerHTML = "0";
     document.getElementById("score_bar").appendChild(score);
 
-    // move background
-    var element = document.querySelector('#panning');
-    var panning = new Motio(element, {
-        fps: 100, // Frames per second. More fps = higher CPU load.
-        speedY: 100 // Negative horizontal speed = panning to left.
-    });
-    panning.play(); // start animation
+
+    // make tries bar visible
+    document.getElementById("try_bar").style.visibility = "visible";
+
+    generateSpaceShip();
+
+    beginLevel1()
 
 
-});
+}
 
-function putLifeBar(){
-    
-     for (var i = 0; i < 5; i++) {
+function putLifeBar() {
+
+    for (var i = 0; i < 5; i++) {
         var heart = document.createElement("img");
         heart.setAttribute("name", "life");
         heart.setAttribute("width", "20");
@@ -48,7 +67,7 @@ function putLifeBar(){
         heart.style.marginRight = "5px";
         document.getElementById("life_bar").appendChild(heart);
     }
-    
+
 }
 
 function playExplosionSound() {
@@ -159,7 +178,7 @@ function detectCollisions() {
 function destroySpaceShip() {
 
     playExplosionSound();
-    
+
     reduceTries();
 
     var spaceShip = document.getElementById('spaceShip');
@@ -198,7 +217,7 @@ function reduceLife() {
     document.getElementById("life_bar").removeChild(lifes[0]);
     if (lifes.length === 0)
         destroySpaceShip();
-        
+
 }
 
 function increaseLife() {
@@ -246,21 +265,44 @@ function updateScore(increaseScore) {
 }
 
 function reduceTries() {
-    
-     var tryNumber = document.getElementById("tryNumber");
-     
+
+    var tryNumber = document.getElementById("tryNumber");
+
     if (parseInt(tryNumber.innerHTML) > 0) {
-       
+
         tryNumber.innerHTML = parseInt(tryNumber.innerHTML) - 1;
         removeAllLifes();
-        setTimeout(function (){generateSpaceShip(), putLifeBar()}, 2000);
+        setTimeout(function () {
+            generateSpaceShip(), putLifeBar()
+        }, 2000);
+    }else if(parseInt(tryNumber.innerHTML) === 0) {
+        
+        putGameOverScreen();
+        stopLevel1();
+        stopBackgroundMusic();
+        
     }
+    
+    
+    
 }
 
-function removeAllLifes(){
+function putGameOverScreen(){
+    
+    var screen = document.createElement("img");
+    screen.setAttribute("id", "endScreen");
+    screen.style.paddingLeft = 330 +"px";
+    screen.style.paddingTop = 130 +"px";
+    screen.style.marginLeft = 110 +"px";
+    screen.setAttribute("src", "img/gameover.png");
+    document.body.appendChild(screen);
+    
+}
+
+function removeAllLifes() {
     var lifes = document.getElementsByName("life");
     var len = lifes.length;
-    for(i =0; i<len; i++){
+    for (i = 0; i < len; i++) {
         document.getElementById("life_bar").removeChild(lifes[0]);
     }
 }

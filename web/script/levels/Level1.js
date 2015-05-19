@@ -4,16 +4,32 @@ level1_audio.volume = 0.2;
 
 var backgroundMusicInterval;
 
-setInterval(manageGame, 5000);
+var manageLevelInterval;
 
 $(document).ready(function () {
+
+});
+
+
+function beginLevel1() {
+
+    
+    manageLevelInterval = setInterval(manageGame, 5000);
     level1_audio.play();
     playBackgroundMusic();
     generateUfoEnemy();
     setTimeout(function () {
         generateUfoEnemy()
     }, 1000);
-});
+
+}
+
+function stopLevel1(){
+    
+    clearInterval(manageLevelInterval);
+    level1_audio.pause();
+    
+}
 
 function playBackgroundMusic() {
     backgroundMusicInterval = setInterval(function () {

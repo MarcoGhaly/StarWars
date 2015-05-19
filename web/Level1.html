@@ -25,7 +25,7 @@
         <div id="life_bar" style="position: absolute; left: 20px; top: 15px"></div>
         <div id="score_bar" style="position: absolute; left: 20px; top: 40px"></div>
 
-        <div id="try_bar" style="position: absolute; left: 1260px; top: 15px" >
+        <div id="try_bar" style="position: absolute; left: 1260px; top: 15px; visibility: hidden" >
             <table>
                 <tr>
                     <td>
@@ -40,5 +40,10 @@
                 </tr>
             </table>
         </div>
+        
+        <img id="startScreen"  style="padding-left: 235px; margin-left: 110px ;padding-top:80px;" src="img/Wiki_logo.png" onclick="beginGame()" />
+        <input type="button" onclick="beginGame()" id="startButton" style="margin-left: 540px; margin-top: 50px; font-size: 30px; color: bisque; background: none; border: none"  value="Click here to play">
+    
+        
     </body>
 </html>

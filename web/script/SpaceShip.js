@@ -36,7 +36,7 @@ $(document).ready(function () {
     document.onkeydown = keyDown;
     document.onkeyup = keyUp;
 
-    generateSpaceShip();
+    
 
 });
 
