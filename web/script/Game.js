@@ -58,8 +58,8 @@ function detectCollisions() {
                     explosion.style.backgroundImage = 'url(img/explosion.png)';
                     explosion.style.left = parseInt(enemies[j].style.left) + 'px';
                     explosion.style.top = parseInt(enemies[j].style.top) + 'px';
-                    explosion.style.width = '256px';
-                    explosion.style.height = '256px';
+                    explosion.style.width = '128px';
+                    explosion.style.height = '128px';
                     explosion_fps = 50;
 
                     document.body.removeChild(enemies[j]);
