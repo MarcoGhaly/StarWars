@@ -8,8 +8,10 @@ var asteroid_height = 75;
 var asteroid_strength = 30;
 
 // alawys running functions
-setInterval(generateAsteroids, 2000);
-setInterval(updateAsteroids, 30);
+//var generateAsteroidsInterval = setInterval(generateAsteroids, 500);
+var updateAsteroidsInterval;
+
+var updateAstroidIntervalStarted = false;
 
 function generateAsteroids() {
     var asteroid = document.createElement('img');
@@ -29,10 +31,21 @@ function generateAsteroids() {
     }
     asteroid.strength = asteroid_strength;
     document.body.appendChild(asteroid);
+
+    if (!updateAstroidIntervalStarted) {
+        // start update interval
+        updateAsteroidsInterval = setInterval(updateAsteroids, 30);
+        updateAstroidIntervalStarted = true;
+    }
 }
 
 function updateAsteroids() {
     var asteroids = document.getElementsByName('asteroid');
+
+    if (asteroids.length === 0) {
+        clearInterval(updateAsteroidsInterval);
+        updateAstroidIntervalStarted = false;
+    }
     for (var i = 0; i < asteroids.length; i++) {
         asteroids[i].style.top = parseInt(asteroids[i].style.top) + asteroid_moveUnit + 'px';
         asteroids[i].style.left = parseInt(asteroids[i].style.left) + asteroid_moveUnit * 1.5 + 'px';

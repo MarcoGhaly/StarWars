@@ -2,6 +2,8 @@ var screenWidth = $(window).width();
 var screenHeight = $(window).height();
 var frames = [];
 
+var explosion_audio = new Audio('audio/explosion1.mp3');
+
 setInterval(detectCollisions, 50);
 
 $(document).ready(function () {
@@ -10,7 +12,49 @@ $(document).ready(function () {
     for (var i = 0; i < 48; i++) {
         frames[i] = i;
     }
+
+    
+    // life bar
+    putLifeBar();
+    
+
+    // score bar
+    var score = document.createElement("span");
+    score.setAttribute("id", "score");
+    score.style.color = "white";
+    score.style.fontSize = 22 + "px";
+    score.innerHTML = "0";
+    document.getElementById("score_bar").appendChild(score);
+
+    // move background
+    var element = document.querySelector('#panning');
+    var panning = new Motio(element, {
+        fps: 100, // Frames per second. More fps = higher CPU load.
+        speedY: 100 // Negative horizontal speed = panning to left.
+    });
+    panning.play(); // start animation
+
+
 });
+
+function putLifeBar(){
+    
+     for (var i = 0; i < 5; i++) {
+        var heart = document.createElement("img");
+        heart.setAttribute("name", "life");
+        heart.setAttribute("width", "20");
+        heart.setAttribute("height", "20");
+        heart.setAttribute("src", "img/heart.png");
+        heart.style.marginRight = "5px";
+        document.getElementById("life_bar").appendChild(heart);
+    }
+    
+}
+
+function playExplosionSound() {
+
+    explosion_audio.play();
+}
 
 function detectCollisions() {
     var bullets = document.getElementsByName('bullet');
@@ -29,6 +73,14 @@ function detectCollisions() {
                 var explosion_fps;
 
                 if (enemies[j].strength === 0) {
+
+                    // update score
+                    updateScore(100);
+
+                    // play explosion sound
+                    playExplosionSound();
+
+
                     explosion.style.backgroundImage = 'url(img/explosion_medium.png)';
                     explosion.style.left = parseInt(enemies[j].style.left) + 'px';
                     explosion.style.top = parseInt(enemies[j].style.top) + 'px';
@@ -61,43 +113,25 @@ function detectCollisions() {
             }
         }
 
-        // Collisions with bullets
+        // Collisions with enemies
         var spaceShip = document.getElementById('spaceShip');
         if (isColliding(spaceShip, enemies[j])) {
-            var explosion = document.createElement('div');
-            explosion.style.backgroundImage = 'url(img/explosion_medium.png)';
-            explosion.style.position = 'absolute';
 
-            explosion.style.left = parseInt(enemies[j].style.left) + 'px';
-            explosion.style.top = parseInt(enemies[j].style.top) + 'px';
-            explosion.style.width = '128px';
-            explosion.style.height = '128px';
-            explosion_fps = 50;
-
-            document.body.appendChild(explosion);
-
-            jQuery(explosion).animateSprite({
-                fps: explosion_fps,
-                animations: {
-                    explode: frames
-                },
-                loop: false,
-                complete: function () {
-                    document.body.removeChild(explosion);
-                }
-            });
-
-            document.body.removeChild(spaceShip);
+            destroySpaceShip();
         }
     }
 
-    var enemyBullets = document.getElementsByName('enemyBullet');
+    var enemyBullets = document.getElementsByClassName('enemy_bullet');
     for (var i = 0; i < enemyBullets.length; i++) {
         if (isColliding(enemyBullets[i], spaceShip)) {
+
+            // reduce space life
+            reduceLife();
+
             var explosion = document.createElement('div');
             explosion.style.backgroundImage = 'url(img/explosion_hit.png)';
             explosion.style.position = 'absolute';
-            
+
             explosion.style.left = parseInt(enemyBullets[i].style.left) + 'px';
             explosion.style.top = parseInt(enemyBullets[i].style.top) + 'px';
             explosion.style.width = '25px';
@@ -122,6 +156,70 @@ function detectCollisions() {
     }
 }
 
+function destroySpaceShip() {
+
+    playExplosionSound();
+    
+    reduceTries();
+
+    var spaceShip = document.getElementById('spaceShip');
+
+    var explosion = document.createElement('div');
+    explosion.style.backgroundImage = 'url(img/explosion_medium.png)';
+    explosion.style.position = 'absolute';
+
+    explosion.style.left = parseInt(spaceShip.style.left) + 'px';
+    explosion.style.top = parseInt(spaceShip.style.top) + 'px';
+    explosion.style.width = '128px';
+    explosion.style.height = '128px';
+    explosion_fps = 50;
+
+    document.body.appendChild(explosion);
+
+    jQuery(explosion).animateSprite({
+        fps: explosion_fps,
+        animations: {
+            explode: frames
+        },
+        loop: false,
+        complete: function () {
+            document.body.removeChild(explosion);
+        }
+    });
+
+    document.body.removeChild(spaceShip);
+
+
+}
+
+function reduceLife() {
+
+    var lifes = document.getElementsByName("life");
+    document.getElementById("life_bar").removeChild(lifes[0]);
+    if (lifes.length === 0)
+        destroySpaceShip();
+        
+}
+
+function increaseLife() {
+
+    var lifes = document.getElementsByName("life");
+
+
+    if (lifes.length < 5) {
+
+        var heart = document.createElement("img");
+        heart.setAttribute("name", "life");
+        heart.setAttribute("width", "20");
+        heart.setAttribute("height", "20");
+        heart.setAttribute("src", "img/heart.png");
+        heart.style.marginRight = "5px";
+        document.getElementById("life_bar").appendChild(heart);
+
+    }
+}
+
+
 function isColliding(smallerObject, biggerObject) {
     var horizontal = parseInt(smallerObject.style.left) > parseInt(biggerObject.style.left)
             && parseInt(smallerObject.style.left) < parseInt(biggerObject.style.left) + biggerObject.width
@@ -137,5 +235,32 @@ function isColliding(smallerObject, biggerObject) {
         return true;
     } else {
         return false;
+    }
+}
+
+function updateScore(increaseScore) {
+
+    var score = document.getElementById("score");
+    score.innerHTML = parseInt(score.innerHTML) + increaseScore;
+
+}
+
+function reduceTries() {
+    
+     var tryNumber = document.getElementById("tryNumber");
+     
+    if (parseInt(tryNumber.innerHTML) > 0) {
+       
+        tryNumber.innerHTML = parseInt(tryNumber.innerHTML) - 1;
+        removeAllLifes();
+        setTimeout(function (){generateSpaceShip(), putLifeBar()}, 2000);
+    }
+}
+
+function removeAllLifes(){
+    var lifes = document.getElementsByName("life");
+    var len = lifes.length;
+    for(i =0; i<len; i++){
+        document.getElementById("life_bar").removeChild(lifes[0]);
     }
 }

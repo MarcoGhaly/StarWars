@@ -14,10 +14,10 @@ var bullet_heightR = 30;
 
 
 var repeatedEnemy_strength = 30;
-setInterval(initEnemyMovementR, 60);
-setInterval(moveRepeatedEnemies, 60);
-setInterval(generateRepeatedBulletsRandomly, 1000);
-setInterval(moveRepeatedBullets, 25);
+//setInterval(initEnemyMovementR, 60);
+//setInterval(moveRepeatedEnemies, 60);
+//setInterval(generateRepeatedBulletsRandomly, 1000);
+//setInterval(moveRepeatedBullets, 25);
 $(document).ready(function () {
     for (var j = -(screenHeight / 2); j < (0 - repeated_height); j = j + (20 + repeated_height)) {
         for (var i = 300; i < (screenWidth - 300); i = i + (10 + repeated_width)) {
@@ -94,7 +94,7 @@ function generateRepeatedBulletsRandomly() {
         for (var v = 0; v < repeatedEnemiesS.length; v++) {
             if (parseInt(Math.random() * 45) === 0) {
                 var repeated_bullet = document.createElement('img');
-                repeated_bullet.setAttribute('src', 'img/bulletR.png');
+                repeated_bullet.setAttribute('src', 'img/rocket.png');
                 repeated_bullet.setAttribute('name', 'repeatedBullet');
                 repeated_bullet.style.width = bullet_widthR + 'px';
                 repeated_bullet.style.height = bullet_heightR + 'px';
@@ -118,6 +118,3 @@ function moveRepeatedBullets() {
         }
     }
 }
-
-
-

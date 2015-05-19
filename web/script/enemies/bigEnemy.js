@@ -9,32 +9,54 @@ var bullet_heightY = 30;
 var enemyBigShip;
 
 var initMoveFlag = false;
-var bigEnemy_strength = 30;
+var bigEnemy_strength = 1000;
 
-setInterval(initEnemyMovement, 50);
-setInterval(moveEnemyRandomly, 25);
-setInterval(generateCoor, 3000);
-setInterval(generateBigEnemyBullets, 3000);
-setInterval(updateCenterEnemyBullets, 25);
-setInterval(updateLeftEnemyBullets, 25);
-setInterval(updateRightEnemyBullets, 25);
+var initEnemyMovementInterval;
+var moveEnemyRandomlyInterval;
+var generateCoorInterval;
+var generateBigEnemyBulletsInterval;
+var updateLeftEnemyBulletsInterval;
 
-$(document).ready(function () {
-    enemyBigShip = document.getElementById('bigEnemyShip');
+function generateBigEnemy() {
+
+    enemyBigShip = document.createElement('img');
+    enemyBigShip.setAttribute('src', 'img/bigenemy.png');
+    enemyBigShip.setAttribute('width', 250 + 'px');
+    enemyBigShip.setAttribute('height', 150 + 'px');
     enemyBigShip.style.position = 'absolute';
     enemyBigShip.style.left = (screenWidth - enemyBigShip.width) / 2 + 'px';
     enemyBigShip.style.top = (0 - enemyBigShip.height) + 'px';
     enemyBigShip.setAttribute('class', 'enemy');
     enemyBigShip.setAttribute('name', 'bigEnemyShip');
     enemyBigShip.strength = bigEnemy_strength;
-});
+    document.body.appendChild(enemyBigShip);
+    
+
+    initEnemyMovementInterval = setInterval(initEnemyMovement, 50);
+    
+}
 
 function initEnemyMovement() {
+    alert("sds");
     // alert(enemyBigShip.style.top);
     if ((parseInt(enemyBigShip.style.top)) < 150) {
         enemyBigShip.style.top = parseInt(enemyBigShip.style.top) + 5 + 'px';
+        
     } else {
         initMoveFlag = true;
+        
+        // stop init enemy interval
+        clearInterval(initEnemyMovementInterval);
+
+        // start enemy and bullets movement
+        moveEnemyRandomlyInterval = setInterval(moveEnemyRandomly, 25);
+        generateCoorInterval = setInterval(generateCoor, 3000);
+        generateBigEnemyBulletsInterval = setInterval(generateBigEnemyBullets, 3000);
+        generateBigEnemyBulletsInterval = setInterval(updateCenterEnemyBullets, 25);
+        updateLeftEnemyBulletsInterval = setInterval(updateLeftEnemyBullets, 25);
+        updateLeftEnemyBulletsInterval = setInterval(updateRightEnemyBullets, 25);
+        
+
     }
 }
 
@@ -55,6 +77,19 @@ function generateCoor() {
 }
 
 function moveEnemyRandomly() {
+
+    var enemies = document.getElementsByName('bigEnemyShip');
+
+    if (enemies.length === 0) {
+
+        // stop all intervals
+        clearInterval(moveEnemyRandomlyInterval);
+        clearInterval(generateCoorInterval);
+        clearInterval(generateBigEnemyBulletsInterval);
+        clearInterval(updateLeftEnemyBulletsInterval);
+
+    }
+
     x = parseInt(enemyBigShip.style.left) + deltaX;
     y = ((enemyTop - parseInt(enemyBigShip.style.top)) * (x - parseInt(enemyBigShip.style.left)) / (enemyLeft - parseInt(enemyBigShip.style.left))) + parseInt(enemyBigShip.style.top);
     if (initMoveFlag === true) {
@@ -89,17 +124,20 @@ function generateBigEnemyBullets() {
             bullet.setAttribute('name', 'bigEnemyBullet');
             bullet.setAttribute('width', bullet_widthY + 'px');
             bullet.setAttribute('height', bullet_heightY + 'px');
+            bullet.setAttribute('class', 'enemy_bullet');
 
             bullet1.setAttribute('src', 'img/rocket_left.png');
             bullet1.setAttribute('name', 'leftBigEnemyBullet');
             bullet1.setAttribute('width', bullet_widthY + 'px');
             bullet1.setAttribute('height', bullet_heightY + 'px');
-
+            bullet1.setAttribute('class', 'enemy_bullet');
+            
             bullet2.setAttribute('src', 'img/rocket_right.png');
             bullet2.setAttribute('name', 'rightBigEnemyBullet');
             bullet2.setAttribute('width', bullet_widthY + 'px');
             bullet2.setAttribute('height', bullet_heightY + 'px');
-
+            bullet2.setAttribute('class', 'enemy_bullet');
+            
             bullet.style.position = 'absolute';
             bullet1.style.position = 'absolute';
             bullet2.style.position = 'absolute';
