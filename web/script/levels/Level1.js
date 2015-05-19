@@ -10,6 +10,9 @@ $(document).ready(function () {
     level1_audio.play();
     playBackgroundMusic();
     generateUfoEnemy();
+    setTimeout(function (){generateUfoEnemy()},2000);
+    setTimeout(function (){generateUfoEnemy()},4000);
+    
     
 
 });
