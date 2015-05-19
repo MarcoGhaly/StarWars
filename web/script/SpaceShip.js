@@ -35,12 +35,22 @@ $(document).ready(function () {
     document.onkeydown = keyDown;
     document.onkeyup = keyUp;
 
-    spaceShip = document.getElementById('spaceShip');
+    generateSpaceShip();
 
+});
+
+function generateSpaceShip(){
+    
+    spaceShip = document.createElement("img");
+    spaceShip.setAttribute("src", "img/ship.png");
+    spaceShip.setAttribute("id", "spaceShip");
+    spaceShip.setAttribute("width", "75");
+    spaceShip.setAttribute("height", "100");
     spaceShip.style.position = 'absolute';
     spaceShip.style.left = (screenWidth - spaceShip.width) / 2 + 'px';
     spaceShip.style.top = screenHeight - spaceShip.height + 'px';
-});
+    document.body.appendChild(spaceShip);
+}
 
 function keyDown(e) {
     setKey(e.keyCode, true);
@@ -93,7 +103,7 @@ function move() {
         }
     }
 
-    if (spacePressed) {
+    if (spacePressed && document.getElementById("spaceShip") != null) {
         var bullet = document.createElement('img');
         bullet.setAttribute('src', 'img/bullet.png');
         bullet.setAttribute('name', 'bullet');

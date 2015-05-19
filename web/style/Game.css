@@ -1,6 +1,6 @@
-body {
-    background-image: url(../img/space.jpg);
-    background-repeat: no-repeat;
+.panning {
+    background-image: url(../img/space.png);
+    
     background-size: cover;
     overflow: hidden;
 }

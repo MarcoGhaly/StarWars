@@ -33,16 +33,18 @@ function generateBigEnemy() {
     
 
     initEnemyMovementInterval = setInterval(initEnemyMovement, 50);
-
+    
 }
 
 function initEnemyMovement() {
+    alert("sds");
     // alert(enemyBigShip.style.top);
     if ((parseInt(enemyBigShip.style.top)) < 150) {
         enemyBigShip.style.top = parseInt(enemyBigShip.style.top) + 5 + 'px';
+        
     } else {
         initMoveFlag = true;
-
+        
         // stop init enemy interval
         clearInterval(initEnemyMovementInterval);
 
@@ -53,7 +55,7 @@ function initEnemyMovement() {
         generateBigEnemyBulletsInterval = setInterval(updateCenterEnemyBullets, 25);
         updateLeftEnemyBulletsInterval = setInterval(updateLeftEnemyBullets, 25);
         updateLeftEnemyBulletsInterval = setInterval(updateRightEnemyBullets, 25);
-
+        
 
     }
 }

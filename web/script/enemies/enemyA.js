@@ -6,8 +6,8 @@ var enemyShip;
 var initMoveFlag = false;
 var enemy_strength = 30;
 
-setInterval(initEnemyMovement, 50);
-setInterval(moveEnemyRandomly, 20);
+//setInterval(initEnemyMovement, 50);
+//setInterval(moveEnemyRandomly, 20);
 
 $(document).ready(function () {
     enemyShip = document.getElementById('enemyA');
@@ -33,7 +33,7 @@ function enemyABullet() {
     space.appendChild("enemyABullet");
 }
 
-function initEnemyMovement() {
+function initEnemyMovementY() {
 //    enemyABullet();
     if ((parseInt(enemyShip.style.top)) < 25) {
         enemyShip.style.top = parseInt(enemyShip.style.top) + 5 + 'px';
@@ -42,7 +42,7 @@ function initEnemyMovement() {
     }
 }
 
-function moveEnemyRandomly() {
+function moveEnemyRandomlyY() {
     if ((parseInt(enemyShip.style.left)) < screenWidth) {
         x = parseInt(enemyShip.style.left) + 2;
         y = 75 * Math.sin(x * 0.02) + enemyShip.height / 2;

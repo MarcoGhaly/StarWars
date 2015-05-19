@@ -16,18 +16,40 @@
         <script type="text/javascript" src="script/enemies/SpeedyAndTricky.js"></script>
         <script type="text/javascript" src="script/jquery.animateSprite.min.js"></script>
         <script type="text/javascript" src="script/enemies/enemyA.js"></script>
+        <script type="text/javascript" src="script/motio.min.js" ></script>
 
     </head>
-    <body>
-
-        <div id="life_bar">
+    <body id="panning" class="panning">
+        
+       
+        <div id="life_bar" style="position: absolute; left: 20px; top: 15px">
 
         </div>
-        <div id="score_bar">
-            
+        <div id="score_bar" style="position: absolute; left: 20px; top: 40px">
+
         </div>
 
+        <div id="try_bar" style="position: absolute; left: 1260px; top: 15px" >
+            <table>
+                <tr>
+                    <td>
+                        <span id="tryNumber" style="color: white; font-size: 30px">5</span>
+                      
+                    </td>
+                    <td>
+                        <span style="color: white">X</span>
+                    </td>
+                    <td>
+                        <img src="img/ship.png" width="40px" height="40px"  />
+                    </td>
+                </tr>
+            </table>
+        </div>
 
-        <img src="img/ship.png" id="spaceShip" width="75" height="100"  />
+        <!--<img src="img/ewess_enemy.png" id="enemyA" width="200" height="150" />-->
+<!--        <img src="img/ship.png" id="spaceShip" width="75" height="100"  />-->
+
+
+
     </body>
 </html>
