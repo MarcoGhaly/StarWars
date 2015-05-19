@@ -12,11 +12,24 @@ var bullet_width = 10;
 var bullet_height = 30;
 
 // alawys running functions
-setInterval(generateAsteroidsX, 2000);
-setInterval(updateAsteroidsX, 50);
-setInterval(genarateBullets, 700);
-setInterval(updateBullets, 30);
+//setTimeout(generateUfoEnemy, 1);
+var updateAsteroidsXInterval;
+var genarateBulletsInterval;
+var updateBulletsInterval;
 
+var ufoIntervalsStarted = false;
+
+
+function generateUfoEnemy(){
+    
+    setTimeout(generateAsteroidsX, 2000);
+    setTimeout(generateAsteroidsX, 4000);
+    setTimeout(generateAsteroidsX, 6000);
+    setTimeout(generateAsteroidsX, 8000);
+    setTimeout(generateAsteroidsX, 10000);
+    setTimeout(generateAsteroidsX, 12000);
+    
+}
 
 function generateAsteroidsX() {
     var asteroid = document.createElement('img');
@@ -28,7 +41,7 @@ function generateAsteroidsX() {
     asteroid.style.height = asteroid_heightX + 'px';
     asteroid.style.position = 'absolute';
     asteroid.style.left = (screenWidth - parseInt(asteroid.style.width)) / 3 + 'px';
-    asteroid.style.top = - asteroid.height + 'px';
+    asteroid.style.top = -asteroid.height + 'px';
 
     asteroid2.setAttribute('src', 'img/spaceship-Sarah.gif');
     asteroid2.setAttribute('class', 'enemy');
@@ -37,7 +50,7 @@ function generateAsteroidsX() {
     asteroid2.style.height = asteroid_heightX + 'px';
     asteroid2.style.position = 'absolute';
     asteroid2.style.left = (screenWidth - parseInt(asteroid.style.width)) / 3 * 2.5 + 'px';
-    asteroid2.style.top = - asteroid.height + 'px';
+    asteroid2.style.top = -asteroid.height + 'px';
 
     asteroid.strength = 10;
     asteroid2.strength = 10;
@@ -46,11 +59,30 @@ function generateAsteroidsX() {
     document.body.appendChild(asteroid);
     document.body.appendChild(asteroid2);
 
+    // start movement intervals
+    if (!ufoIntervalsStarted) {
+        updateAsteroidsXInterval = setInterval(updateAsteroidsX, 50);
+        genarateBulletsInterval = setInterval(genarateBullets, 700);
+        updateBulletsInterval = setInterval(updateBullets, 30);
+        ufoIntervalsStarted = true;
+    }
 }
 
 function updateAsteroidsX() {
     asteroids = document.getElementsByName('ufo');
+    
+    if(asteroids.length === 0){
+        
+        // stop all intervals
+        clearInterval(updateAsteroidsXInterval);
+        clearInterval(genarateBulletsInterval);
+        clearInterval(updateBulletsInterval);
+        ufoIntervalsStarted = false;
+        
+    }
+    
     for (var i = 0; i < asteroids.length; i++) {
+
         asteroids[i].style.top = parseInt(asteroids[i].style.top) + asteroid_moveUnitX + 'px';
 
         if (parseInt(asteroids[i].style.top) > 50)
@@ -80,6 +112,12 @@ function updateAsteroidsX() {
 
         }
 
+        if (parseInt(asteroids[i].style.top) > screenHeight) {
+
+            document.body.removeChild(asteroids[i]);
+
+        }
+
     }
 }
 
@@ -88,6 +126,7 @@ function genarateBullets() {
         var bullet = document.createElement('img');
         bullet.setAttribute('src', 'img/bullet.png');
         bullet.setAttribute('name', 'bulletX');
+        bullet.setAttribute('class', 'enemy_bullet');
         bullet.setAttribute('width', bullet_width + 'px');
         bullet.setAttribute('height', bullet_height + 'px');
         bullet.style.position = 'absolute';
