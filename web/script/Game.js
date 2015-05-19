@@ -5,7 +5,7 @@ var frames = [];
 setInterval(detectCollisions, 50);
 
 $(document).ready(function () {
-    var body = document.getElementsByTagName('body')[0];
+//    var body = document.getElementsByTagName('body')[0];
 
     for (var i = 0; i < 48; i++) {
         frames[i] = i;
