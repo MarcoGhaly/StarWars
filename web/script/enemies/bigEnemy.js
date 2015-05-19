@@ -18,7 +18,6 @@ var generateBigEnemyBulletsInterval;
 var updateLeftEnemyBulletsInterval;
 
 function generateBigEnemy() {
-
     enemyBigShip = document.createElement('img');
     enemyBigShip.setAttribute('src', 'img/bigenemy.png');
     enemyBigShip.setAttribute('width', 250 + 'px');
@@ -31,14 +30,10 @@ function generateBigEnemy() {
     enemyBigShip.strength = bigEnemy_strength;
     document.body.appendChild(enemyBigShip);
     
-
     initEnemyMovementInterval = setInterval(initEnemyMovement, 50);
-    
 }
 
 function initEnemyMovement() {
-    alert("sds");
-    // alert(enemyBigShip.style.top);
     if ((parseInt(enemyBigShip.style.top)) < 150) {
         enemyBigShip.style.top = parseInt(enemyBigShip.style.top) + 5 + 'px';
         
@@ -55,8 +50,6 @@ function initEnemyMovement() {
         generateBigEnemyBulletsInterval = setInterval(updateCenterEnemyBullets, 25);
         updateLeftEnemyBulletsInterval = setInterval(updateLeftEnemyBullets, 25);
         updateLeftEnemyBulletsInterval = setInterval(updateRightEnemyBullets, 25);
-        
-
     }
 }
 
@@ -77,7 +70,6 @@ function generateCoor() {
 }
 
 function moveEnemyRandomly() {
-
     var enemies = document.getElementsByName('bigEnemyShip');
 
     if (enemies.length === 0) {
@@ -106,8 +98,6 @@ function getRandomLeft(min, max) {
 function getRandomTop(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
-
 
 //generate enemy bullets
 function generateBigEnemyBullets() {
@@ -168,6 +158,7 @@ function updateCenterEnemyBullets() {
         }
     }
 }
+
 function updateLeftEnemyBullets() {
     var bullets = document.getElementsByName('leftBigEnemyBullet');
     for (var i = 0; i < bullets.length; i++) {

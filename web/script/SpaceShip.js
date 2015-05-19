@@ -3,7 +3,8 @@ var screenHeight = $(window).height();
 
 var spaceShip_moveUnit = 10;
 
-var audio_weapon = new Audio('audio/weapon.wav');
+var audio_weaponS = new Audio('audio/weapon.wav');
+audio_weaponS.volume = 0.2;
 
 // keys uni-code
 var key_left = 37;
@@ -14,7 +15,7 @@ var key_space = 32;
 
 // bullet units
 var bullet_moveUnit = 20;
-var bullet_width = 10;
+var bullet_width = 15;
 var bullet_height = 30;
 
 var spaceShip;
@@ -115,9 +116,9 @@ function move() {
         bullet.style.top = parseInt(spaceShip.style.top) - bullet_height + 'px';
 
         document.body.appendChild(bullet);
-        audio_weapon.play();
+        audio_weaponS.play();
     } else {
-        audio_weapon.pause();
+        audio_weaponS.pause();
     }
 }
 

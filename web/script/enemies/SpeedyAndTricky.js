@@ -3,14 +3,12 @@ var screenHeight = $(window).height();
 
 // enemy units
 var enemy_moveUnit = 25;
-var enemy_width = 100;
-var enemy_height = 100;
+var enemy_width = 200;
+var enemy_height = 200;
 var toPos_x = 1000;
 var toPos_y = 200;
 var enemy_Direction = "right";
 var flag = true;
-
-var audio_weapon = new Audio('audio/weapon.wav');
 
 // bullet units
 var fireBall_width = 30;
@@ -30,8 +28,8 @@ function generateSpeedyAndTricky() {
     enemy.setAttribute('src', 'img/pirate.gif');
     enemy.setAttribute('name', 'speedAndTricky');
     enemy.setAttribute('class', 'enemy');
-    enemy.setAttribute('width', enemy_width + 50 + 'px');
-    enemy.setAttribute('height', enemy_height + 50 + 'px');
+    enemy.setAttribute('width', enemy_width + 'px');
+    enemy.setAttribute('height', enemy_height + 'px');
     enemy.strength = 100;
 
     enemy.style.position = 'absolute';
@@ -57,77 +55,78 @@ function updateSpeedyAndTrickyMove() {
     // stop enemy movement if there is no enemy
     if (enemyShips.length === 0) {
         clearInterval(updateSpeedyAndTrickyMoveInterval);
-        clearInterval(updateSpeedAndTrickyBulletsInterval);
         speedyIntervalStart = false;
-        
-        var enemyBullets =  document.getElementsByName('enemyBullet');
-        
-        for(i = 0; i<enemyBullets.length; i++){
+
+        var enemyBullets = document.getElementsByName('enemyBullet');
+
+        for (i = 0; i < enemyBullets.length; i++) {
             document.body.removeChild(enemyBullets[i]);
         }
-    }
+    } else {
 
-    for (i = 0; i < enemyShips.length; i++) {
+        for (i = 0; i < enemyShips.length; i++) {
 
-        var spaceShip_x;
-        var spaceShip_y;
+            var spaceShip_x;
+            var spaceShip_y;
 
-        if (parseInt(enemyShips[i].style.left) >= toPos_x - 50 && parseInt(enemyShips[i].style.left) <= toPos_x + 50
-                && parseInt(enemyShips[i].style.top) >= toPos_y - 50 && parseInt(enemyShips[i].style.top) <= toPos_y + 50) {
+            if (parseInt(enemyShips[i].style.left) >= toPos_x - 50 && parseInt(enemyShips[i].style.left) <= toPos_x + 50
+                    && parseInt(enemyShips[i].style.top) >= toPos_y - 50 && parseInt(enemyShips[i].style.top) <= toPos_y + 50) {
 
-            // pause enemy ship
-            clearInterval(updateSpeedyAndTrickyMoveInterval);
-            setTimeout(function () {
-                updateSpeedyAndTrickyMoveInterval = setInterval(updateSpeedyAndTrickyMove, 25)
-            }, 500);
+                // pause enemy ship
+                clearInterval(updateSpeedyAndTrickyMoveInterval);
+                setTimeout(function () {
+                    updateSpeedyAndTrickyMoveInterval = setInterval(updateSpeedyAndTrickyMove, 25)
+                }, 500);
 
-            // enemy fire
-            enemyFire(enemyShips[i]);
+                // enemy fire
+                enemyFire(enemyShips[i]);
 
-            // generate new position
-            while (true) {
+                // generate new position
+                while (true) {
 
-                toPos_x = parseInt(Math.random() * 1000) + 50;
-                if (Math.abs(toPos_x - parseInt(enemyShips[i].style.left)) > 300)
-                    break;
+                    toPos_x = parseInt(Math.random() * 1000) + 50;
+                    if (Math.abs(toPos_x - parseInt(enemyShips[i].style.left)) > 300)
+                        break;
+                }
+
+                toPos_y = parseInt(Math.random() * 300) + 50;
+
+                console.log(toPos_x + ", " + toPos_y);
+
+                if (parseInt(enemyShips[i].style.left) > toPos_x) {
+
+                    enemy_Direction = "left";
+
+                } else {
+                    enemy_Direction = "right";
+                }
+
             }
 
-            toPos_y = parseInt(Math.random() * 300) + 50;
+            if (enemy_Direction === "right") {
 
-            console.log(toPos_x + ", " + toPos_y);
+                spaceShip_x = parseInt(enemyShips[i].style.left) + enemy_moveUnit;
+                spaceShip_y = parseInt(enemyShips[i].style.top);
+                spaceShip_y = ((toPos_y - spaceShip_y) * (spaceShip_x - parseInt(enemyShips[i].style.left)) / (toPos_x - parseInt(enemyShips[i].style.left))) + spaceShip_y;
 
-            if (parseInt(enemyShips[i].style.left) > toPos_x) {
+            } else if (enemy_Direction === "left") {
 
-                enemy_Direction = "left";
-
-            } else {
-                enemy_Direction = "right";
+                spaceShip_x = parseInt(enemyShips[i].style.left) - enemy_moveUnit;
+                spaceShip_y = parseInt(enemyShips[i].style.top);
+                spaceShip_y = ((toPos_y - spaceShip_y) * (spaceShip_x - parseInt(enemyShips[i].style.left)) / (toPos_x - parseInt(enemyShips[i].style.left))) + spaceShip_y;
             }
 
+            enemyShips[i].style.left = spaceShip_x + 'px';
+            enemyShips[i].style.top = spaceShip_y + 'px';
         }
 
-        if (enemy_Direction === "right") {
-
-            spaceShip_x = parseInt(enemyShips[i].style.left) + enemy_moveUnit;
-            spaceShip_y = parseInt(enemyShips[i].style.top);
-            spaceShip_y = ((toPos_y - spaceShip_y) * (spaceShip_x - parseInt(enemyShips[i].style.left)) / (toPos_x - parseInt(enemyShips[i].style.left))) + spaceShip_y;
-
-        } else if (enemy_Direction === "left") {
-
-            spaceShip_x = parseInt(enemyShips[i].style.left) - enemy_moveUnit;
-            spaceShip_y = parseInt(enemyShips[i].style.top);
-            spaceShip_y = ((toPos_y - spaceShip_y) * (spaceShip_x - parseInt(enemyShips[i].style.left)) / (toPos_x - parseInt(enemyShips[i].style.left))) + spaceShip_y;
-        }
-
-        enemyShips[i].style.left = spaceShip_x + 'px';
-        enemyShips[i].style.top = spaceShip_y + 'px';
     }
 
 }
 
 function enemyFire(enemyShip) {
 
-    
+
     var spaceShip = document.getElementById('spaceShip');
 
     var bullet = document.createElement('img');
@@ -152,27 +151,33 @@ function enemyFire(enemyShip) {
     }
 
     document.body.appendChild(bullet);
-    audio_weapon.play();
-
-    
-
 }
 
 function updateSpeedyAndTrickyBullets() {
 
+    var enemyShips = document.getElementsByName('speedAndTricky');
     var bullets = document.getElementsByName('enemyBullet');
 
+    if (enemyShips.length === 0 && bullets.length === 0) {
 
-    for (var i = 0; i < bullets.length; i++) {
+        clearInterval(updateSpeedAndTrickyBulletsInterval);
 
-        var bullet_x = parseInt(bullets[i].style.left);
-        var bullet_y = parseInt(bullets[i].style.top) + bullets[i].moveUnit;
+    } else {
 
-        var bullet_x = ((bullet_y - parseInt(bullets[i].style.top)) * (bullets[i].direct_x - parseInt(bullets[i].style.left)) / (bullets[i].direct_y - parseInt(bullets[i].style.top))) + bullet_x;
+        for (var i = 0; i < bullets.length; i++) {
 
-        bullets[i].style.left = bullet_x + 'px';
-        bullets[i].style.top = bullet_y + 'px';
+            var bullet_x = parseInt(bullets[i].style.left);
+            var bullet_y = parseInt(bullets[i].style.top) + bullets[i].moveUnit;
+
+            var bullet_x = ((bullet_y - parseInt(bullets[i].style.top)) * (bullets[i].direct_x - parseInt(bullets[i].style.left)) / (bullets[i].direct_y - parseInt(bullets[i].style.top))) + bullet_x;
+
+            bullets[i].style.left = bullet_x + 'px';
+            bullets[i].style.top = bullet_y + 'px';
+
+        }
 
     }
+
+
 
 }
