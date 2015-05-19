@@ -18,19 +18,19 @@ $(document).ready(function () {
     enemyShip.strength = enemy_strength;
 });
 
+var bullet;
+var space;
 
-    var bullet ;
-    var space ;
-
-    function enemyABullet(){
-        space = getElementById("spaceShip");    
-        bullet = document.createElement("enemyABullet");
-        bullet.setAttribute("src","img/bullet.png");
-        bullet.setAttribute("name","enemyABulletName");
-        bullet.style.position = "absolute";
-        bullet.style.left = enemyShip.style.left;
-        bullet.style.top = enemyShip.style.top;
-        space.appendChild("enemyABullet"); 
+function enemyABullet() {
+    space = getElementById("spaceShip");
+    bullet = document.createElement("enemyABullet");
+    bullet.setAttribute("src", "img/bullet.png");
+    bullet.setAttribute('class', 'enemy_bullet');
+    bullet.setAttribute("name", "enemyABulletName");
+    bullet.style.position = "absolute";
+    bullet.style.left = enemyShip.style.left;
+    bullet.style.top = enemyShip.style.top;
+    space.appendChild("enemyABullet");
 }
 
 function initEnemyMovement() {
@@ -43,32 +43,26 @@ function initEnemyMovement() {
 }
 
 function moveEnemyRandomly() {
-    if((parseInt(enemyShip.style.left)) < screenWidth){
-        x = parseInt(enemyShip.style.left) + 3;
-        y = 50 * Math.sin( x  * 0.05)  + 50;    
-    }else {
-        x = 20;
-        y = 50 * Math.sin( x  * 0.05)  + 50;            
+    if ((parseInt(enemyShip.style.left)) < screenWidth) {
+        x = parseInt(enemyShip.style.left) + 2;
+        y = 75 * Math.sin(x * 0.02) + enemyShip.height / 2;
+    } else {
+        x = - enemyShip.width;
+        y = 75 * Math.sin(x * 0.02) + enemyShip.height / 2;
     }
     if (initMoveFlag === true) {
         enemyShip.style.left = x + 'px';
         enemyShip.style.top = y + 'px';
     }
-    
 
-    
-    
-    
-// move bullet >> not completed ! 
-    
-    setInterval(moveBullet,50);
+    // move bullet >> not completed ! 
 
-function moveBullet(){
-    var x = bullet.style.left - space.style.left;
-    var y = bullet.style.top - space.style.top;
-    bullet.style.left = x ; 
-    bullet.style.top = y ; 
-}
+    setInterval(moveBullet, 50);
 
-
+    function moveBullet() {
+        var x = bullet.style.left - space.style.left;
+        var y = bullet.style.top - space.style.top;
+        bullet.style.left = x;
+        bullet.style.top = y;
+    }
 }

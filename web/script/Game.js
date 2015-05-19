@@ -29,11 +29,11 @@ function detectCollisions() {
                 var explosion_fps;
 
                 if (enemies[j].strength === 0) {
-                    explosion.style.backgroundImage = 'url(img/explosion.png)';
+                    explosion.style.backgroundImage = 'url(img/explosion_medium.png)';
                     explosion.style.left = parseInt(enemies[j].style.left) + 'px';
                     explosion.style.top = parseInt(enemies[j].style.top) + 'px';
-                    explosion.style.width = '256px';
-                    explosion.style.height = '256px';
+                    explosion.style.width = '128px';
+                    explosion.style.height = '128px';
                     explosion_fps = 50;
 
                     document.body.removeChild(enemies[j]);
@@ -65,13 +65,13 @@ function detectCollisions() {
         var spaceShip = document.getElementById('spaceShip');
         if (isColliding(spaceShip, enemies[j])) {
             var explosion = document.createElement('div');
-            explosion.style.backgroundImage = 'url(img/explosion.png)';
+            explosion.style.backgroundImage = 'url(img/explosion_medium.png)';
             explosion.style.position = 'absolute';
 
             explosion.style.left = parseInt(enemies[j].style.left) + 'px';
             explosion.style.top = parseInt(enemies[j].style.top) + 'px';
-            explosion.style.width = '256px';
-            explosion.style.height = '256px';
+            explosion.style.width = '128px';
+            explosion.style.height = '128px';
             explosion_fps = 50;
 
             document.body.appendChild(explosion);
