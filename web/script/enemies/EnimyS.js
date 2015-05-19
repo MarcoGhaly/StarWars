@@ -8,7 +8,7 @@ var spaceCraftEnimy_heightX = 80;
 
 // bullet units
 var bullet_moveUnit = 10;
-var bullet_width = 10;
+var bullet_width = 20;
 var bullet_height = 30;
 
 // alawys running functions
@@ -20,7 +20,6 @@ setInterval(updateBullets, 30);
 
 function generateAsteroidsX() {
     var spaceCraftEnimy = document.createElement('img');
-    var spaceCraftEnimy2 = document.createElement('img');
     spaceCraftEnimy.setAttribute('src', 'img/spaceship-Sarah.gif');
     spaceCraftEnimy.setAttribute('class', 'enemy');
     spaceCraftEnimy.setAttribute('name', 'ufo');
@@ -28,20 +27,13 @@ function generateAsteroidsX() {
     spaceCraftEnimy.style.height = spaceCraftEnimy_heightX + 'px';
     spaceCraftEnimy.style.position = 'absolute';
 
-
-
-//        
-//    spaceCraftEnimy.style.left = (screenWidth - parseInt(spaceCraftEnimy.style.width)) / 3 + 'px';
-//    spaceCraftEnimy.style.top = -spaceCraftEnimy.height + 'px';
     spaceCraftEnimy.style.left = parseInt(Math.random() *
             (screenWidth - spaceCraftEnimy_widthX * 2) + spaceCraftEnimy_widthX) + 'px';
     spaceCraftEnimy.style.top = -spaceCraftEnimy_heightX + 'px';
 
     spaceCraftEnimy.strength = 10;
 
-
     document.body.appendChild(spaceCraftEnimy);
-//    alert('here');
 }
 
 function updateAsteroidsX() {
@@ -80,7 +72,7 @@ function updateAsteroidsX() {
 function genarateBullets() {
     for (var i = 0; i < spaceCraftEnimys.length; i++) {
         var bullet = document.createElement('img');
-        bullet.setAttribute('src', 'img/bullet.png');
+        bullet.setAttribute('src', 'img/bulletS.png');
         bullet.setAttribute('name', 'bulletX');
         bullet.setAttribute('width', bullet_width + 'px');
         bullet.setAttribute('height', bullet_height + 'px');

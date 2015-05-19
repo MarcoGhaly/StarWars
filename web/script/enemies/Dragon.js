@@ -1,6 +1,8 @@
 var screenWidth = $(window).width();
 var screenHeight = $(window).height();
 
+var audio_dragon = new Audio('audio/dragon.wav');
+
 var DIRECTION_LEFT = -1;
 var DIRECTION_RIGHT = 1;
 
@@ -87,6 +89,8 @@ function generateFlames() {
         flame.direction = dragons[i].direction;
 
         document.body.appendChild(flame);
+        
+        audio_dragon.play();
     }
 }
 

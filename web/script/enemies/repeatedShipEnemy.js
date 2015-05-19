@@ -94,7 +94,7 @@ function generateRepeatedBulletsRandomly() {
         for (var v = 0; v < repeatedEnemiesS.length; v++) {
             if (parseInt(Math.random() * 45) === 0) {
                 var repeated_bullet = document.createElement('img');
-                repeated_bullet.setAttribute('src', 'img/rocket.png');
+                repeated_bullet.setAttribute('src', 'img/bulletR.png');
                 repeated_bullet.setAttribute('name', 'repeatedBullet');
                 repeated_bullet.style.width = bullet_widthR + 'px';
                 repeated_bullet.style.height = bullet_heightR + 'px';
