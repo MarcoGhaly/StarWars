@@ -12,7 +12,6 @@ var bullet_width = 10;
 var bullet_height = 30;
 
 // alawys running functions
-//setTimeout(generateUfoEnemy, 1);
 var updateAsteroidsXInterval;
 var genarateBulletsInterval;
 var updateBulletsInterval;
@@ -54,11 +53,31 @@ function generateAsteroidsX() {
 
 
     document.body.appendChild(spaceCraftEnimy);
-//    alert('here');
+
+    // start movement intervals
+    if (!ufoIntervalsStarted) {
+        updateAsteroidsXInterval = setInterval(updateAsteroidsX, 50);
+        genarateBulletsInterval = setInterval(genarateBullets, 700);
+        updateBulletsInterval = setInterval(updateBullets, 30);
+        ufoIntervalsStarted = true;
+    }
+
 }
 
 function updateAsteroidsX() {
     spaceCraftEnimys = document.getElementsByName('ufo');
+    
+     if(spaceCraftEnimys.length === 0){
+        
+        // stop all intervals
+        clearInterval(updateAsteroidsXInterval);
+        clearInterval(genarateBulletsInterval);
+        clearInterval(updateBulletsInterval);
+        ufoIntervalsStarted = false;
+        
+    }
+    
+    
     for (var i = 0; i < spaceCraftEnimys.length; i++) {
         spaceCraftEnimys[i].style.top = parseInt(spaceCraftEnimys[i].style.top) + spaceCraftEnimy_moveUnitX + 'px';
 
@@ -87,13 +106,12 @@ function updateAsteroidsX() {
             spaceCraftEnimys[i].style.top = parseInt(spaceCraftEnimys[i].style.top) + 2 + 'px';
 
         }
+        
+        if (parseInt(spaceCraftEnimys[i].style.top) > screenHeight) {
 
-        if (parseInt(asteroids[i].style.top) > screenHeight) {
-
-            document.body.removeChild(asteroids[i]);
+            document.body.removeChild(spaceCraftEnimys[i]);
 
         }
-
     }
 }
 
