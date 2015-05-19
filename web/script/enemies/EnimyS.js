@@ -2,9 +2,9 @@ var screenWidth = $(window).width();
 var screenHeight = $(window).height();
 
 // enemy units
-var asteroid_moveUnitX = 5;
-var asteroid_widthX = 80;
-var asteroid_heightX = 80;
+var spaceCraftEnimy_moveUnitX = 5;
+var spaceCraftEnimy_widthX = 80;
+var spaceCraftEnimy_heightX = 80;
 
 // bullet units
 var bullet_moveUnit = 10;
@@ -32,83 +32,59 @@ function generateUfoEnemy(){
 }
 
 function generateAsteroidsX() {
-    var asteroid = document.createElement('img');
-    var asteroid2 = document.createElement('img');
-    asteroid.setAttribute('src', 'img/spaceship-Sarah.gif');
-    asteroid.setAttribute('class', 'enemy');
-    asteroid.setAttribute('name', 'ufo');
-    asteroid.style.width = asteroid_widthX + 'px';
-    asteroid.style.height = asteroid_heightX + 'px';
-    asteroid.style.position = 'absolute';
-    asteroid.style.left = (screenWidth - parseInt(asteroid.style.width)) / 3 + 'px';
-    asteroid.style.top = -asteroid.height + 'px';
-
-    asteroid2.setAttribute('src', 'img/spaceship-Sarah.gif');
-    asteroid2.setAttribute('class', 'enemy');
-    asteroid2.setAttribute('name', 'ufo');
-    asteroid2.style.width = asteroid_widthX + 'px';
-    asteroid2.style.height = asteroid_heightX + 'px';
-    asteroid2.style.position = 'absolute';
-    asteroid2.style.left = (screenWidth - parseInt(asteroid.style.width)) / 3 * 2.5 + 'px';
-    asteroid2.style.top = -asteroid.height + 'px';
-
-    asteroid.strength = 10;
-    asteroid2.strength = 10;
+    var spaceCraftEnimy = document.createElement('img');
+    var spaceCraftEnimy2 = document.createElement('img');
+    spaceCraftEnimy.setAttribute('src', 'img/spaceship-Sarah.gif');
+    spaceCraftEnimy.setAttribute('class', 'enemy');
+    spaceCraftEnimy.setAttribute('name', 'ufo');
+    spaceCraftEnimy.style.width = spaceCraftEnimy_widthX + 'px';
+    spaceCraftEnimy.style.height = spaceCraftEnimy_heightX + 'px';
+    spaceCraftEnimy.style.position = 'absolute';
 
 
-    document.body.appendChild(asteroid);
-    document.body.appendChild(asteroid2);
 
-    // start movement intervals
-    if (!ufoIntervalsStarted) {
-        updateAsteroidsXInterval = setInterval(updateAsteroidsX, 50);
-        genarateBulletsInterval = setInterval(genarateBullets, 700);
-        updateBulletsInterval = setInterval(updateBullets, 30);
-        ufoIntervalsStarted = true;
-    }
+//        
+//    spaceCraftEnimy.style.left = (screenWidth - parseInt(spaceCraftEnimy.style.width)) / 3 + 'px';
+//    spaceCraftEnimy.style.top = -spaceCraftEnimy.height + 'px';
+    spaceCraftEnimy.style.left = parseInt(Math.random() *
+            (screenWidth - spaceCraftEnimy_widthX * 2) + spaceCraftEnimy_widthX) + 'px';
+    spaceCraftEnimy.style.top = -spaceCraftEnimy_heightX + 'px';
+
+    spaceCraftEnimy.strength = 10;
+
+
+    document.body.appendChild(spaceCraftEnimy);
+//    alert('here');
 }
 
 function updateAsteroidsX() {
-    asteroids = document.getElementsByName('ufo');
-    
-    if(asteroids.length === 0){
-        
-        // stop all intervals
-        clearInterval(updateAsteroidsXInterval);
-        clearInterval(genarateBulletsInterval);
-        clearInterval(updateBulletsInterval);
-        ufoIntervalsStarted = false;
-        
-    }
-    
-    for (var i = 0; i < asteroids.length; i++) {
+    spaceCraftEnimys = document.getElementsByName('ufo');
+    for (var i = 0; i < spaceCraftEnimys.length; i++) {
+        spaceCraftEnimys[i].style.top = parseInt(spaceCraftEnimys[i].style.top) + spaceCraftEnimy_moveUnitX + 'px';
 
-        asteroids[i].style.top = parseInt(asteroids[i].style.top) + asteroid_moveUnitX + 'px';
-
-        if (parseInt(asteroids[i].style.top) > 50)
+        if (parseInt(spaceCraftEnimys[i].style.top) > 50)
         {
-            asteroids[i].style.left = parseInt(asteroids[i].style.left) - 10 + 'px';
-            asteroids[i].style.top = parseInt(asteroids[i].style.top) + 2 + 'px';
+            spaceCraftEnimys[i].style.left = parseInt(spaceCraftEnimys[i].style.left) - 10 + 'px';
+            spaceCraftEnimys[i].style.top = parseInt(spaceCraftEnimys[i].style.top) + 2 + 'px';
 
         }
 
-        if (parseInt(asteroids[i].style.top) > 170)
+        if (parseInt(spaceCraftEnimys[i].style.top) > 170)
         {
-            asteroids[i].style.left = parseInt(asteroids[i].style.left) + 20 + 'px';
-            asteroids[i].style.top = parseInt(asteroids[i].style.top) + 2 + 'px';
+            spaceCraftEnimys[i].style.left = parseInt(spaceCraftEnimys[i].style.left) + 20 + 'px';
+            spaceCraftEnimys[i].style.top = parseInt(spaceCraftEnimys[i].style.top) + 2 + 'px';
 
         }
-        if (parseInt(asteroids[i].style.top) > 300)
+        if (parseInt(spaceCraftEnimys[i].style.top) > 300)
         {
-            asteroids[i].style.left = parseInt(asteroids[i].style.left) - 10 + 'px';
-            asteroids[i].style.top = parseInt(asteroids[i].style.top) + 2 + 'px';
+            spaceCraftEnimys[i].style.left = parseInt(spaceCraftEnimys[i].style.left) - 10 + 'px';
+            spaceCraftEnimys[i].style.top = parseInt(spaceCraftEnimys[i].style.top) + 2 + 'px';
 
         }
 
-        if (parseInt(asteroids[i].style.top) > 370)
-        {
-            asteroids[i].style.left = parseInt(asteroids[i].style.left) - 10 + 'px';
-            asteroids[i].style.top = parseInt(asteroids[i].style.top) + 2 + 'px';
+        if (parseInt(spaceCraftEnimys[i].style.top) > 370) {
+            spaceCraftEnimys[i].style.left = parseInt(spaceCraftEnimys[i].style.left) - 10 + 'px';
+            spaceCraftEnimys[i].style.top = parseInt(spaceCraftEnimys[i].style.top) + 2 + 'px';
 
         }
 
@@ -122,7 +98,7 @@ function updateAsteroidsX() {
 }
 
 function genarateBullets() {
-    for (var i = 0; i < asteroids.length; i++) {
+    for (var i = 0; i < spaceCraftEnimys.length; i++) {
         var bullet = document.createElement('img');
         bullet.setAttribute('src', 'img/bullet.png');
         bullet.setAttribute('name', 'bulletX');
@@ -131,11 +107,13 @@ function genarateBullets() {
         bullet.setAttribute('height', bullet_height + 'px');
         bullet.style.position = 'absolute';
 
-        bullet.style.left = parseInt(asteroids[i].style.left) + (asteroids[i].width - bullet_width) / 2 + 'px';
-        bullet.style.top = parseInt(asteroids[i].style.top) + asteroids[i].height + 'px';
+        bullet.style.left = parseInt(spaceCraftEnimys[i].style.left) + (spaceCraftEnimys[i].width - bullet_width) / 2 + 'px';
+        bullet.style.top = parseInt(spaceCraftEnimys[i].style.top) + spaceCraftEnimys[i].height + 'px';
+
+
 
         document.body.appendChild(bullet);
-        audio_weapon.play();
+        //audio_weapon.play();
     }
 }
 

@@ -1,68 +1,84 @@
 var screenWidth = $(window).width();
 var screenHeight = $(window).height();
 
-var enemyShip;
+var enemyAShip;
 
-var initMoveFlag = false;
-var enemy_strength = 30;
+var initMoveFlagA = false;
+var enemyA_strength = 30;
 
-//setInterval(initEnemyMovement, 50);
-//setInterval(moveEnemyRandomly, 20);
+setInterval(initEnemyAMovement, 50);
+setInterval(moveEnemyARandomly, 20);
+setInterval(genarateBulletsA, 3000);
+setInterval(updateBulletsA, 30);
 
 $(document).ready(function () {
-    enemyShip = document.getElementById('enemyA');
-    enemyShip.style.position = 'absolute';
-    enemyShip.style.left = (screenWidth - enemyShip.width) / 2 + 'px';
-    enemyShip.style.top = (0 - enemyShip.height) + 'px';
-    enemyShip.setAttribute('class', 'enemy');
-    enemyShip.strength = enemy_strength;
+    enemyAShip = document.getElementById('enemyA');
+    enemyAShip.style.position = 'absolute';
+    enemyAShip.style.left = (screenWidth - enemyAShip.width) / 2 + 'px';
+    enemyAShip.style.top = (0 - enemyAShip.height) + 'px';
+    enemyAShip.setAttribute('class', 'enemy');
+    enemyAShip.strength = enemyA_strength;
 });
 
 var bullet;
 var space;
 
-function enemyABullet() {
-    space = getElementById("spaceShip");
-    bullet = document.createElement("enemyABullet");
-    bullet.setAttribute("src", "img/bullet.png");
-    bullet.setAttribute('class', 'enemy_bullet');
-    bullet.setAttribute("name", "enemyABulletName");
-    bullet.style.position = "absolute";
-    bullet.style.left = enemyShip.style.left;
-    bullet.style.top = enemyShip.style.top;
-    space.appendChild("enemyABullet");
-}
 
-function initEnemyMovementY() {
-//    enemyABullet();
-    if ((parseInt(enemyShip.style.top)) < 25) {
-        enemyShip.style.top = parseInt(enemyShip.style.top) + 5 + 'px';
+
+function initEnemyAMovement() {
+    if ((parseInt(enemyAShip.style.top)) < 25) {
+        enemyAShip.style.top = parseInt(enemyAShip.style.top) + 5 + 'px';
     } else {
-        initMoveFlag = true;
+        initMoveFlagA = true;
     }
 }
 
-function moveEnemyRandomlyY() {
-    if ((parseInt(enemyShip.style.left)) < screenWidth) {
-        x = parseInt(enemyShip.style.left) + 2;
-        y = 75 * Math.sin(x * 0.02) + enemyShip.height / 2;
+function moveEnemyARandomly() {
+    if ((parseInt(enemyAShip.style.left)) < screenWidth) {
+        x = parseInt(enemyAShip.style.left) + 3;
+        y = 50 * Math.sin(x * 0.05) + 50;
     } else {
-        x = - enemyShip.width;
-        y = 75 * Math.sin(x * 0.02) + enemyShip.height / 2;
+        x = 20;
+        y = 50 * Math.sin(x * 0.05) + 50;
     }
-    if (initMoveFlag === true) {
-        enemyShip.style.left = x + 'px';
-        enemyShip.style.top = y + 'px';
+    if (initMoveFlagA === true) {
+        enemyAShip.style.left = x + 'px';
+        enemyAShip.style.top = y + 'px';
     }
+}
 
-    // move bullet >> not completed ! 
 
-    setInterval(moveBullet, 50);
+// bullet units
+var bulletA_moveUnit = 10;
 
-    function moveBullet() {
-        var x = bullet.style.left - space.style.left;
-        var y = bullet.style.top - space.style.top;
-        bullet.style.left = x;
-        bullet.style.top = y;
+
+var bulletA_width =100;
+var bulletA_height = 70;
+
+
+function genarateBulletsA() {
+    var bulletA = document.createElement('img');
+    bulletA.setAttribute('src', 'img/greenBullet.png');
+    bulletA.setAttribute('class', 'enemy_bullets');
+    bulletA.setAttribute('name', 'enemyA_bullets');
+    bulletA.setAttribute('width', bulletA_width + 'px');
+    bulletA.setAttribute('height', bulletA_height + 'px');
+    bulletA.style.position = 'absolute';
+
+    bulletA.style.left = parseInt(enemyAShip.style.left) + (enemyAShip.width - bulletA_width) / 2 + 'px';
+    bulletA.style.top = parseInt(enemyAShip.style.top) + enemyAShip.height + 'px';
+
+    document.body.appendChild(bulletA);
+}
+
+
+function updateBulletsA() {
+    var bulletsA = document.getElementsByName('enemyA_bullets');
+    for (var i = 0; i < bulletsA.length; i++)
+    {
+        bulletsA[i].style.top = parseInt(bulletsA[i].style.top) + bulletA_moveUnit + 'px';
+        if (parseInt(bulletsA[i].style.top) + bulletA_height > screenHeight) {
+            document.body.removeChild(bulletsA[i]);
+        }
     }
 }
