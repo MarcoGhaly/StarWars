@@ -12,15 +12,11 @@ var bullet_moveUnitR = 5;
 var bullet_widthR = 20;
 var bullet_heightR = 30;
 
+var repeatedEnemy_strength = 15;
 
-var repeatedEnemy_strength = 30;
-//setInterval(initEnemyMovementR, 60);
-//setInterval(moveRepeatedEnemies, 60);
-//setInterval(generateRepeatedBulletsRandomly, 1000);
-//setInterval(moveRepeatedBullets, 25);
-$(document).ready(function () {
+function generateRepeatedEnemy() {
     for (var j = -(screenHeight / 2); j < (0 - repeated_height); j = j + (20 + repeated_height)) {
-        for (var i = 300; i < (screenWidth - 300); i = i + (10 + repeated_width)) {
+        for (var i = 400; i < (screenWidth - 300); i = i + (10 + repeated_width)) {
             enemyRepeatedShip = document.createElement('img');
             enemyRepeatedShip.setAttribute('src', 'img/repeatedShip.png');
             enemyRepeatedShip.setAttribute('class', 'enemy');
@@ -34,7 +30,13 @@ $(document).ready(function () {
             document.body.appendChild(enemyRepeatedShip);
         }
     }
-});
+
+    setInterval(initEnemyMovementR, 60);
+    setInterval(moveRepeatedEnemies, 60);
+    setInterval(generateRepeatedBulletsRandomly, 1000);
+    setInterval(moveRepeatedBullets, 25);
+    setInterval(reverseMovement, 2000);
+}
 
 function initEnemyMovementR() {
     var repeatedEnemies = document.getElementsByName('repeatedEnemy');
@@ -48,23 +50,10 @@ function initEnemyMovementR() {
 }
 // the Normal movement of the enemies
 function moveRepeatedEnemies() {
-
     var repeatedEnemies1 = document.getElementsByName('repeatedEnemy');
 
-    if ((parseInt(repeatedEnemies1[0].style.left)) < 20) {
-        reverseMove = true;
-    }
-
-    if ((parseInt(repeatedEnemies1[8].style.left)) > (screenWidth - 80)) {
-        reverseMove = false;
-    }
-
-
-
     if (initMoveFlagR === true) {
-
         if (reverseMove === true) {
-
             for (var c = 0; c < repeatedEnemies1.length; c++) {
                 repeatedEnemies1[c].style.left = parseInt(repeatedEnemies1[c].style.left) + 5 + 'px';
             }
@@ -83,7 +72,6 @@ function moveRepeatedEnemies() {
                 repeatedEnemies1[d].style.left = parseInt(repeatedEnemies1[d].style.left) + 5 + 'px';
             }
         }
-
     }
 }
 
@@ -92,9 +80,10 @@ function generateRepeatedBulletsRandomly() {
     if (initMoveFlagR === true) {
         var repeatedEnemiesS = document.getElementsByName('repeatedEnemy');
         for (var v = 0; v < repeatedEnemiesS.length; v++) {
-            if (parseInt(Math.random() * 45) === 0) {
+            if (parseInt(Math.random() * 10) === 0) {
                 var repeated_bullet = document.createElement('img');
-                repeated_bullet.setAttribute('src', 'img/rocket.png');
+                repeated_bullet.setAttribute('src', 'img/bulletR.png');
+                repeated_bullet.setAttribute('class', 'enemy_bullet');
                 repeated_bullet.setAttribute('name', 'repeatedBullet');
                 repeated_bullet.style.width = bullet_widthR + 'px';
                 repeated_bullet.style.height = bullet_heightR + 'px';
@@ -116,5 +105,13 @@ function moveRepeatedBullets() {
         if (parseInt(repeatedbullets[i].style.top) + repeatedbullets > screenHeight) {
             document.body.removeChild(repeatedbullets[i]);
         }
+    }
+}
+
+function reverseMovement() {
+    if (reverseMove === false) {
+        reverseMove = true;
+    } else if (reverseMove === true) {
+        reverseMove = false;
     }
 }

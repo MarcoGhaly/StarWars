@@ -15,7 +15,7 @@ var key_space = 32;
 
 // bullet units
 var bullet_moveUnit = 20;
-var bullet_width = 10;
+var bullet_width = 15;
 var bullet_height = 30;
 
 var spaceShip;
