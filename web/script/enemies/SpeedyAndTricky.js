@@ -30,7 +30,7 @@ function generateSpeedyAndTricky() {
     enemy.setAttribute('class', 'enemy');
     enemy.setAttribute('width', enemy_width + 'px');
     enemy.setAttribute('height', enemy_height + 'px');
-    enemy.strength = 100;
+    enemy.strength = 300;
 
     enemy.style.position = 'absolute';
 

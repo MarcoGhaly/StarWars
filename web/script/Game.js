@@ -16,7 +16,9 @@ $(document).ready(function () {
     })
     panning.play(); // start animation
 
-    startButtonBlinkInterval = setInterval(function (){$("#startButton").fadeIn(1000).fadeOut(1000)}, 1000);
+    startButtonBlinkInterval = setInterval(function () {
+        $("#startButton").fadeIn(1000).fadeOut(1000)
+    }, 1000);
 
 });
 
@@ -25,7 +27,7 @@ function beginGame() {
     // clear screen
     document.body.removeChild(document.getElementById("startScreen"));
     document.body.removeChild(document.getElementById("startButton"));
-    
+
 
     for (var i = 0; i < 48; i++) {
         frames[i] = i;
@@ -42,7 +44,7 @@ function beginGame() {
     score.setAttribute("id", "score");
     score.style.color = "white";
     score.style.fontSize = 22 + "px";
-    score.innerHTML = "0";
+    score.innerHTML = "200";
     document.getElementById("score_bar").appendChild(score);
 
 
@@ -51,7 +53,8 @@ function beginGame() {
 
     generateSpaceShip();
 
-    beginLevel1()
+    beginLevel1();
+
 
 
 }
@@ -275,29 +278,121 @@ function reduceTries() {
         setTimeout(function () {
             generateSpaceShip(), putLifeBar()
         }, 2000);
-    }else if(parseInt(tryNumber.innerHTML) === 0) {
-        
+    } else if (parseInt(tryNumber.innerHTML) === 0) {
+
         putGameOverScreen();
         stopLevel1();
         stopBackgroundMusic();
-        
+
     }
-    
-    
-    
+
+
+
 }
 
-function putGameOverScreen(){
-    
+function putGameOverScreen() {
+
     var screen = document.createElement("img");
     screen.setAttribute("id", "endScreen");
-    screen.style.paddingLeft = 330 +"px";
-    screen.style.paddingTop = 130 +"px";
-    screen.style.marginLeft = 110 +"px";
+    screen.style.paddingLeft = 330 + "px";
+    screen.style.paddingTop = 130 + "px";
+    screen.style.marginLeft = 110 + "px";
     screen.setAttribute("src", "img/gameover.png");
     document.body.appendChild(screen);
-    
+
 }
+
+function putHappyEndScreen() {
+
+    //var score = document.getElementById("score");
+    score = 200;
+    document.body.innerHTML = "<div style=\"position: absolute ;left:350px; top:150px\" id=\"happyEnd\"><p style=\"color: white; font-size: 50px\">Congratulations, you are alive!</p><p style=\"color: white; font-size: 50px; margin-left:80px;\">Score: " + score.innerHTML + "<span id=\"finalScore\"></span></p></div>";
+
+    var happyEnd = document.getElementById("happyEnd");
+    var step = 1;
+    var theInterval;
+
+    setTimeout(function () {
+
+        theInterval = setInterval(function () {
+
+            if (step === 1) {
+
+                if (parseInt(happyEnd.style.top) < -200) {
+                    step = 2;
+                    happyEnd.style.top = screenHeight + "px";
+                    happyEnd.innerHTML = "<p style=\"color: white; font-size: 50px; margin-left:150px\">Game Makers</p>";
+                }
+
+            } else if (step === 2) {
+
+                if (parseInt(happyEnd.style.top) < -200) {
+                    step = 3;
+                    happyEnd.style.top = screenHeight + "px";
+                    happyEnd.innerHTML = "<p style=\"color: white; font-size: 50px; margin-left:150px\">Marco Ghaly</p><img style=\"top:25px; left:450px; position: absolute\"  src=\"img/dragon_right.gif\" width=\"100px\" height=\"100px\" />";
+                }
+
+            } else if (step === 3) {
+
+                if (parseInt(happyEnd.style.top) < -200) {
+                    step = 4;
+                    happyEnd.style.top = screenHeight + "px";
+                    happyEnd.innerHTML = "<p style=\"color: white; font-size: 50px; margin-left:150px\">Mohamed Gaber</p><img style=\"top:0px; left:500px; position: absolute\"  src=\"img/pirate.gif\" width=\"170px\" height=\"170px\" />";
+                }
+
+            } else if (step === 4) {
+
+                if (parseInt(happyEnd.style.top) < -200) {
+                    step = 5;
+                    happyEnd.style.top = screenHeight + "px";
+                    happyEnd.innerHTML = "<p style=\"color: white; font-size: 50px; margin-left:150px\">Mohamed Elahmady</p><img style=\"top:50px; left:600px; position: absolute\"  src=\"img/bigenemy.png\" width=\"100px\" height=\"60px\" />";
+                }
+
+            } else if (step === 5) {
+
+                if (parseInt(happyEnd.style.top) < -200) {
+                    step = 6;
+                    happyEnd.style.top = screenHeight + "px";
+                    happyEnd.innerHTML = "<p style=\"color: white; font-size: 50px; margin-left:150px\">Ahmed Ali</p><img style=\"top:30px; left:430px; position: absolute\"  src=\"img/ewess_enemy.png\" width=\"150px\" height=\"90px\" />";
+                }
+
+            } else if (step === 6) {
+
+                if (parseInt(happyEnd.style.top) < -200) {
+                    step = 7;
+                    happyEnd.style.top = screenHeight + "px";
+                    happyEnd.innerHTML = "<p style=\"color: white; font-size: 50px; margin-left:150px\">Sarah Aabed</p><img style=\"top:40px; left:450px; position: absolute\"  src=\"img/spaceship-Sarah.gif\" width=\"100px\" height=\"70px\" />";
+                }
+
+            } else if (step === 7) {
+
+                if (parseInt(happyEnd.style.top) < -200) {
+                    step = 8;
+                    happyEnd.style.top = screenHeight + "px";
+                    happyEnd.innerHTML = "<p style=\"color: white; font-size: 50px; margin-left:150px\">Ahmed Adel</p>";
+                }
+
+            } else if (step === 8) {
+
+                if (parseInt(happyEnd.style.top) < -200) {
+
+                    happyEnd.style.top = screenHeight - 550 + "px";
+                    happyEnd.innerHTML = "<p style=\"color: white; font-size: 100px; margin-left:150px\">The End</p>";
+                    clearInterval(theInterval);
+                }
+            }
+
+            happyEnd.style.top = parseInt(happyEnd.style.top) - 2 + "px";
+
+        }, 10);
+
+
+    }, 2000);
+
+
+
+}
+
 
 function removeAllLifes() {
     var lifes = document.getElementsByName("life");

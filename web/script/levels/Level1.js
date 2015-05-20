@@ -13,7 +13,7 @@ $(document).ready(function () {
 
 function beginLevel1() {
 
-    
+
     manageLevelInterval = setInterval(manageGame, 5000);
     level1_audio.play();
     playBackgroundMusic();
@@ -21,14 +21,15 @@ function beginLevel1() {
     setTimeout(function () {
         generateUfoEnemy()
     }, 1000);
+    
 
 }
 
-function stopLevel1(){
-    
+function stopLevel1() {
+
     clearInterval(manageLevelInterval);
     level1_audio.pause();
-    
+
 }
 
 function playBackgroundMusic() {
@@ -82,5 +83,13 @@ function manageGame() {
             generateBigEnemy();
             scence = 6;
         }
+        
+    } else if (scence === 6) {
+        var enemies = document.getElementsByName('bigEnemyShip');
+        if (enemies.length === 0) {
+            stopLevel1();
+            setTimeout(function (){putHappyEndScreen()}, 3000);
+        }
     }
+
 }
