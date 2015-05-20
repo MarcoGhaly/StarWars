@@ -9,7 +9,7 @@ var bullet_heightY = 30;
 var enemyBigShip;
 
 var initMoveFlag = false;
-var bigEnemy_strength = 1500;
+var bigEnemy_strength = 1000;
 
 var initEnemyMovementInterval;
 var moveEnemyRandomlyInterval;

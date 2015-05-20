@@ -304,8 +304,8 @@ function putGameOverScreen() {
 
 function putHappyEndScreen() {
 
-    //var score = document.getElementById("score");
-    score = 200;
+    var score = document.getElementById("score");
+    
     document.body.innerHTML = "<div style=\"position: absolute ;left:350px; top:150px\" id=\"happyEnd\"><p style=\"color: white; font-size: 50px\">Congratulations, you are alive!</p><p style=\"color: white; font-size: 50px; margin-left:80px;\">Score: " + score.innerHTML + "<span id=\"finalScore\"></span></p></div>";
 
     var happyEnd = document.getElementById("happyEnd");
@@ -369,7 +369,7 @@ function putHappyEndScreen() {
                 if (parseInt(happyEnd.style.top) < -200) {
                     step = 8;
                     happyEnd.style.top = screenHeight + "px";
-                    happyEnd.innerHTML = "<p style=\"color: white; font-size: 50px; margin-left:150px\">Ahmed Adel</p>";
+                    happyEnd.innerHTML = "<p style=\"color: white; font-size: 50px; margin-left:150px\">Ahmed Adel</p><img style=\"top:60px; left:450px; position: absolute\"  src=\"img/repeatedShip.png\" width=\"80px\" height=\"40px\" />";
                 }
 
             } else if (step === 8) {
